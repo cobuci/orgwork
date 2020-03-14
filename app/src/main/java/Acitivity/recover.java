@@ -1,4 +1,4 @@
-package com.orgwork.renewed;
+package Acitivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.orgwork.renewed.R;
+
+import Class.Conexao;
+import Class.ProgressButton;
+
+
 
 public class recover extends AppCompatActivity {
 

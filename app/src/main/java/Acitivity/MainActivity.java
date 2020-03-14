@@ -1,4 +1,5 @@
-package com.orgwork.renewed;
+package Acitivity;
+
 
 import android.content.Intent;
 import android.os.Build;
@@ -21,6 +22,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.orgwork.renewed.Menu;
+import com.orgwork.renewed.R;
+
+import Class.Conexao;
+import Class.ProgressButton;
 
 public class MainActivity extends AppCompatActivity {
 

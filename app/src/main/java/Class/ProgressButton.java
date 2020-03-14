@@ -1,4 +1,4 @@
-package com.orgwork.renewed;
+package Class;
 
 import android.content.Context;
 import android.view.View;
@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-class ProgressButton {
+import com.orgwork.renewed.R;
+
+public class ProgressButton {
 
     private CardView cardView;
     private ConstraintLayout layout;
@@ -17,7 +19,7 @@ class ProgressButton {
 
 
 
-    ProgressButton(Context ct, View view){
+    public ProgressButton(Context ct, View view){
 
         cardView = view.findViewById(R.id.cardView);
         layout = view.findViewById(R.id.constraint_layout);
@@ -26,39 +28,39 @@ class ProgressButton {
 
     }
 
-    void buttonRegister(){
+    public void buttonRegister(){
         textView.setText("Register");
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.colorPrimary));
     }
-    void buttonLoggin(){
+    public void buttonLoggin(){
         textView.setText("Login");
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.colorPrimary));
     }
-    void buttonActivatedRegister(){
+    public void buttonActivatedRegister(){
         progressBar.setVisibility(View.VISIBLE);
         textView.setText("Signing up...");
     }
-    void buttonActivatedLoggin(){
+    public void buttonActivatedLoggin(){
         progressBar.setVisibility(View.VISIBLE);
         textView.setText("Logging in...");
     }
-    void buttonFinished(){
+    public void buttonFinished(){
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.green));
         progressBar.setVisibility(View.GONE);
         textView.setText("Success");
     }
-    void buttonError(){
+    public void buttonError(){
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.Red));
         progressBar.setVisibility(View.GONE);
         textView.setText("Invalid email");
     }
 
-    void buttonErrorLoggin(){
+    public void buttonErrorLoggin(){
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.Red));
         progressBar.setVisibility(View.GONE);
         textView.setText("Invalid credentials");
     }
-    void buttonRecover(){
+    public void buttonRecover(){
         textView.setText("Recover");
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.colorPrimary));
     }

@@ -1,4 +1,4 @@
-package com.orgwork.renewed;
+package Acitivity.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.orgwork.renewed.R;
+
+import Class.Conexao;
 
 public class ProfileFragment extends Fragment {
 

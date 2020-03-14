@@ -11,6 +11,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import Acitivity.Fragment.AgendaFragment;
+import Acitivity.Fragment.HomeFragment;
+import Acitivity.Fragment.ProfileFragment;
+import Class.Conexao;
+
 public class Menu extends AppCompatActivity {
 
     private FirebaseAuth auth;
