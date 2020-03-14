@@ -1,15 +1,20 @@
 package com.orgwork.renewed;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Menu extends AppCompatActivity {
+
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,4 +54,12 @@ public class Menu extends AppCompatActivity {
                  return true;
              }
          };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth = Conexao.getFirebaseAuth();
+        user = Conexao.getFirebaseUser();
+
+    }
 }

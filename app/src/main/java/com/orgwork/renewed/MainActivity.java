@@ -1,9 +1,5 @@
 package com.orgwork.renewed;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,8 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    View LoginButton;
+    View LoginButton, RecoverButton;
 
     // Firebase
     private EditText txtEmail,txtPassword;
@@ -53,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.btn_login);
         LoginButton = findViewById(R.id.login);
+        RecoverButton = findViewById(R.id.btnForgot);
+
+        RecoverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recover();
+
+            }
+        });
+
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         //init the bottom sheet view
         bottomSheetBehavior = BottomSheetBehavior.from(login_layout);
+
+
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,6 +228,19 @@ public class MainActivity extends AppCompatActivity {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
     }
+
+
+    public void recover() {
+        Intent intent = new Intent(this, recover.class);
+
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+
+        if(bottomSheetBehavior.getState()== BottomSheetBehavior.STATE_EXPANDED){
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+    }
+
 
     @Override
     protected void onStart() {

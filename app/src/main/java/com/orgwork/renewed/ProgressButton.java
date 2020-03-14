@@ -1,16 +1,12 @@
 package com.orgwork.renewed;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.view.animation.Animation;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
 class ProgressButton {
 
@@ -62,8 +58,9 @@ class ProgressButton {
         progressBar.setVisibility(View.GONE);
         textView.setText("Invalid credentials");
     }
-    void invalidCredentials(){
-
+    void buttonRecover(){
+        textView.setText("Recover");
+        layout.setBackgroundColor(cardView.getResources().getColor(R.color.colorPrimary));
     }
 
 }
