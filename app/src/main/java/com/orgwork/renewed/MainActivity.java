@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     View LoginButton, RecoverButton;
 
+
     // Firebase
     private EditText txtEmail,txtPassword;
     private FirebaseAuth auth;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        //
         btn_login = findViewById(R.id.btn_login);
         LoginButton = findViewById(R.id.login);
         RecoverButton = findViewById(R.id.btnForgot);
