@@ -19,7 +19,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Perfil"
+            android:text="@string/Text_Titulo_Activity_Perfil"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:typeface="normal" />
@@ -32,13 +32,14 @@
         android:layout_height="28dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/ic_email"
+        android:drawableStart="@drawable/ic_email"
         android:drawablePadding="5dp"
         android:text="loremimpsum@lorem.com"
         android:textAlignment="textEnd"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_nome_perfil" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_nome_perfil"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/txt_nome_perfil"
@@ -46,9 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/ic_person_2"
+        android:drawableStart="@drawable/ic_person_2"
         android:drawablePadding="5dp"
-        android:text="Nome"
+        android:text="@string/Text_Nome_Activity_Perfil"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -61,8 +62,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginBottom="16dp"
         android:background="#00FFFFFF"
-        android:drawableLeft="@drawable/ic_exit"
-        android:text="Sair"
+        android:drawableStart="@drawable/ic_exit"
+        android:text="@string/Button_Logout_Activity_Perfil"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

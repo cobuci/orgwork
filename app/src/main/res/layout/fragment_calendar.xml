@@ -18,7 +18,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Agenda"
+            android:text="@string/Text_Titulo_Activity_Agenda"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:typeface="normal" />
