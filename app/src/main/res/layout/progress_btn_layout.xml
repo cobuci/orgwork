@@ -40,7 +40,7 @@
                 android:id="@+id/textLoginProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="@string/Text_Button_Login"
                 android:textSize="20sp"
                 android:textColor="#fff"
 

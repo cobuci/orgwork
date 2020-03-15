@@ -15,18 +15,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome Back"
+        android:text="@string/Text_Titulo_Activity_Login"
         android:textColor="@android:color/black"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_marginBottom="10dp"
         android:gravity="center"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login to your account"
+        android:text="@string/Text_Subtitulo_Activity_Login"
         android:textColor="@android:color/darker_gray"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:gravity="center"
         android:layout_marginBottom="20dp"/>
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@drawable/edit_text"
-        android:hint="E-mail"
+        android:hint="@string/Hint_Email_Activity_Login"
         android:inputType="textWebEmailAddress"
         android:padding="12.5dp" />
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@drawable/edit_text"
-        android:hint="Password"
+        android:hint="@string/Hint_Password_Activity_Login"
         android:inputType="textPassword"
         android:padding="12.5dp" />
 
@@ -71,9 +71,9 @@
         android:layout_marginBottom="20dp"
         android:clickable="true"
         android:gravity="center"
-        android:text="Forgot your password?"
+        android:text="@string/Text_Recover_Activity_Login"
         android:textColor="@android:color/black"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/btnRegisterBottom"
@@ -83,9 +83,9 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="register"
-        android:text="Don't have an account Sign in"
+        android:text="@string/Text_Register_Activity_Login"
         android:textColor="@color/colorPrimary"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
 
 
