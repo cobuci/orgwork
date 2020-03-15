@@ -21,7 +21,7 @@ import com.orgwork.renewed.R;
 import Class.Conexao;
 import Class.ProgressButton;
 
-public class activity_register extends AppCompatActivity {
+public class RegisterAcitivity extends AppCompatActivity {
 
 
     private EditText txtUsername,txtPassword,txtEmail;
@@ -104,13 +104,13 @@ public class activity_register extends AppCompatActivity {
         }else{
 
 
-            final ProgressButton progressButton = new ProgressButton(activity_register.this, view);
+            final ProgressButton progressButton = new ProgressButton(RegisterAcitivity.this, view);
 
             progressButton.buttonActivatedRegister();
 
 
             auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(activity_register.this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(RegisterAcitivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -177,7 +177,7 @@ public class activity_register extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         auth = Conexao.getFirebaseAuth();
-        ProgressButton progressButton = new ProgressButton(activity_register.this, view);
+        ProgressButton progressButton = new ProgressButton(RegisterAcitivity.this, view);
         progressButton.buttonRegister();
     }
 

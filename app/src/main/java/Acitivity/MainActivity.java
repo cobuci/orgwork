@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void register(View v) {
-        Intent intent = new Intent(this, activity_register.class);
+        Intent intent = new Intent(this, RegisterAcitivity.class);
 
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void recover() {
-        Intent intent = new Intent(this, recover.class);
+        Intent intent = new Intent(this, RecoveryActivity.class);
 
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);

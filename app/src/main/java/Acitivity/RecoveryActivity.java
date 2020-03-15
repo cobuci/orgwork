@@ -18,7 +18,7 @@ import Class.ProgressButton;
 
 
 
-public class recover extends AppCompatActivity {
+public class RecoveryActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private EditText txtEmail;
@@ -54,7 +54,7 @@ public class recover extends AppCompatActivity {
         txtEmail =  findViewById(R.id.txtEmailRecover);
         String email = txtEmail.getText().toString().trim();
 
-        final ProgressButton progressButton = new ProgressButton(recover.this, view);
+        final ProgressButton progressButton = new ProgressButton(RecoveryActivity.this, view);
 
         if (email.equals("")){
             ToastCurto("Digite um email valido");
@@ -86,7 +86,7 @@ public class recover extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         auth = Conexao.getFirebaseAuth();
-        ProgressButton progressButton = new ProgressButton(recover.this, view);
+        ProgressButton progressButton = new ProgressButton(RecoveryActivity.this, view);
         progressButton.buttonRecover();
     }
 }

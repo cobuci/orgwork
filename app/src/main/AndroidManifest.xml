@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="Acitivity.recover"></activity>
+        <activity android:name="Acitivity.RecoveryActivity"></activity>
         <activity android:name=".Menu" />
-        <activity android:name="Acitivity.activity_register" />
+        <activity android:name="Acitivity.RegisterAcitivity" />
         <activity android:name="Acitivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
