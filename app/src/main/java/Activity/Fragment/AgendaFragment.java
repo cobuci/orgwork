@@ -1,10 +1,9 @@
-package Acitivity.Fragment;
+package Activity.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,21 +14,19 @@ import com.orgwork.renewed.R;
 
 import Class.Conexao;
 
-public class ProfileFragment extends Fragment {
+public class AgendaFragment extends Fragment {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
-    TextView email,name;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
 
         return view;
     }
-
 
 
     @Override
@@ -37,22 +34,7 @@ public class ProfileFragment extends Fragment {
         super.onStart();
         auth = Conexao.getFirebaseAuth();
         user = Conexao.getFirebaseUser();
-        verificaUser();
 
     }
 
-
-    private void verificaUser() {
-        if (user == null){
-
-
-        }else{
-            email = getView().findViewById(R.id.txt_email_perfil);
-            name = getView().findViewById(R.id.txt_nome_perfil);
-
-            email.setText(user.getEmail());
-            name.setText(user.getDisplayName());
-
-        }
-    }
 }

@@ -14,7 +14,7 @@
 
 
             <TextView
-                android:id="@+id/txtTitulo"
+                android:id="@+id/txtTituloInicio"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

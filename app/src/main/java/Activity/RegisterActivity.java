@@ -1,4 +1,4 @@
-package Acitivity;
+package Activity;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +21,7 @@ import com.orgwork.renewed.R;
 import Class.Conexao;
 import Class.ProgressButton;
 
-public class RegisterAcitivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
 
     private EditText txtUsername,txtPassword,txtEmail;
@@ -104,13 +104,13 @@ public class RegisterAcitivity extends AppCompatActivity {
         }else{
 
 
-            final ProgressButton progressButton = new ProgressButton(RegisterAcitivity.this, view);
+            final ProgressButton progressButton = new ProgressButton(RegisterActivity.this, view);
 
             progressButton.buttonActivatedRegister();
 
 
             auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(RegisterAcitivity.this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -177,7 +177,7 @@ public class RegisterAcitivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         auth = Conexao.getFirebaseAuth();
-        ProgressButton progressButton = new ProgressButton(RegisterAcitivity.this, view);
+        ProgressButton progressButton = new ProgressButton(RegisterActivity.this, view);
         progressButton.buttonRegister();
     }
 

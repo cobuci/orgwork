@@ -1,4 +1,4 @@
-package Acitivity;
+package Activity;
 
 
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     View LoginButton, RecoverButton;
 
 
+
+
+
     // Firebase
     private EditText txtEmail,txtPassword;
     private FirebaseAuth auth;
@@ -51,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // FIREBASE
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
-        txtEmail = (EditText) findViewById(R.id.txtEmail);
+        txtPassword = findViewById(R.id.txtPassword);
+        txtEmail = findViewById(R.id.txtEmail);
 
-
-
+        //Status bar Transparente
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         //
         btn_login = findViewById(R.id.btn_login);
@@ -227,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void register(View v) {
-        Intent intent = new Intent(this, RegisterAcitivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
 
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);

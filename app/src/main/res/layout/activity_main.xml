@@ -7,7 +7,7 @@
     android:background="@drawable/background"
     android:fitsSystemWindows="true"
 
-    tools:context="Acitivity.MainActivity">
+    tools:context="Activity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="casual"
             android:text="@string/Text_Titulo_Main_Activity"
             android:textColor="#FFFFFF"
