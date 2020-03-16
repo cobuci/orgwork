@@ -2,6 +2,8 @@ package Activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -16,15 +18,22 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.orgwork.renewed.R;
 
 import Class.Conexao;
 import Class.ProgressButton;
+import Class.Usuario;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
 
     private EditText txtUsername,txtPassword,txtEmail;
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
+    private Usuario usuario;
     private FirebaseAuth auth;
     View view;
 
@@ -44,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                usuario = new Usuario();
                 cadastro();
 
 
@@ -87,29 +96,77 @@ public class RegisterActivity extends AppCompatActivity {
 
     // CADASTRO
     public void cadastro(){
-
-            String username = txtUsername.getText().toString().trim();
-            String email = txtEmail.getText().toString().trim();
-            String password = txtPassword.getText().toString().trim();
+            // Vibração
+        Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
 
-        if(username.equals("")){
-            ToastCurto("Name is required");
-        }else if(email.equals("")){
-            ToastCurto("Email is required");
-        }else if (password.equals("")){
-            ToastCurto("Password is required");
-        }else if(password.length() <6){
-            ToastCurto("A Senha é curta demais");
-        }else{
 
+        String username = txtUsername.getText().toString().trim();
+        String email = txtEmail.getText().toString().trim();
+        String password = txtPassword.getText().toString().trim();
+
+
+        if(username.isEmpty() || password.isEmpty() || email.isEmpty()){
+                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                if(username.isEmpty() && password.isEmpty() && email.isEmpty()){
+                    // Error
+                    txtUsername.setBackgroundResource(R.drawable.edit_text_error);
+                    txtEmail.setBackgroundResource(R.drawable.edit_text_error);
+                    txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                }else if(username.isEmpty() && password.isEmpty()){
+                    // Error
+                    txtUsername.setBackgroundResource(R.drawable.edit_text_error);
+                    txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                    // success
+                    txtEmail.setBackgroundResource(R.drawable.edit_text);
+                }else if(username.isEmpty() && email.isEmpty()){
+                    // Error
+                    txtUsername.setBackgroundResource(R.drawable.edit_text_error);
+                    txtEmail.setBackgroundResource(R.drawable.edit_text_error);
+                    // success
+                    txtPassword.setBackgroundResource(R.drawable.edit_text);
+                } else if(email.isEmpty() && password.isEmpty()){
+                    // Error
+                    txtEmail.setBackgroundResource(R.drawable.edit_text_error);
+                    txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                    // success
+                    txtUsername.setBackgroundResource(R.drawable.edit_text);
+                }else if (email.isEmpty()){
+                    // Error
+                    txtEmail.setBackgroundResource(R.drawable.edit_text_error);
+                    // success
+                    txtUsername.setBackgroundResource(R.drawable.edit_text);
+                    txtPassword.setBackgroundResource(R.drawable.edit_text);
+                }else if(username.isEmpty()){
+                    // Error
+                    txtUsername.setBackgroundResource(R.drawable.edit_text_error);
+                    // success
+                    txtPassword.setBackgroundResource(R.drawable.edit_text);
+                    txtEmail.setBackgroundResource(R.drawable.edit_text);
+                }else{
+                    // Error
+                    txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                    // success
+                    txtUsername.setBackgroundResource(R.drawable.edit_text);
+                    txtEmail.setBackgroundResource(R.drawable.edit_text);
+                }
+
+
+            }else {
+
+
+            usuario.setEmail(txtEmail.getText().toString());
+            usuario.setSenha(txtPassword.getText().toString());
+            usuario.setNome(txtUsername.getText().toString());
 
             final ProgressButton progressButton = new ProgressButton(RegisterActivity.this, view);
 
             progressButton.buttonActivatedRegister();
 
 
-            auth.createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword(
+                    usuario.getEmail(),
+                    usuario.getSenha())
                     .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -117,6 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 userProfile();
 
+                                insereUsuario(usuario);
                                 progressButton.buttonFinished();
 
 
@@ -146,17 +204,17 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
         }
-
     }
 
 
 
 
     private void userProfile(){
+        String username = txtUsername.getText().toString().trim();
         FirebaseUser user = auth.getCurrentUser();
         if (user!= null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(txtUsername.getText().toString().trim())
+                    .setDisplayName(usuario.getNome())
                     .build();
 
             user.updateProfile(profileUpdates)
@@ -181,4 +239,15 @@ public class RegisterActivity extends AppCompatActivity {
         progressButton.buttonRegister();
     }
 
+    private boolean insereUsuario(Usuario usuario){
+        try{
+            reference = Conexao.getFirebase().child("usuarios");
+            reference.push().setValue(usuario);
+
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
+
+}

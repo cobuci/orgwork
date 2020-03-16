@@ -17,9 +17,11 @@ import com.orgwork.renewed.R;
 
 import Activity.SplashActivity;
 import Class.Conexao;
+import Class.Usuario;
 
 public class ProfileFragment extends Fragment {
 
+    private Usuario usuario;
     private FirebaseAuth auth;
     private FirebaseUser user;
     TextView email,name;

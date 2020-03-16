@@ -1,6 +1,7 @@
 package Activity;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.orgwork.renewed.R;
 
 import Class.Conexao;
 import Class.ProgressButton;
+import Class.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     // Firebase
     private EditText txtEmail,txtPassword;
     private FirebaseAuth auth;
+    private Usuario usuario;
 
 
 
@@ -119,13 +122,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Botão Voltar
-    private static final int TIME_INTERVAL = 600; // # milliseconds, desired time passed between two back presses.
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
     private long mBackPressed;
     public void onBackPressed() {
         if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
-
+            confirmaSair();
             if(bottomSheetBehavior.getState()== BottomSheetBehavior.STATE_EXPANDED){
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
             }
 
         } else {
@@ -163,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(email.isEmpty() || password.isEmpty()){
+            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
             if(email.isEmpty() && password.isEmpty()){
 
                 txtEmail.setBackgroundResource(R.drawable.edit_text_error);
@@ -170,29 +175,32 @@ public class MainActivity extends AppCompatActivity {
             }else if(email.isEmpty()){
                 txtEmail.setBackgroundResource(R.drawable.edit_text_error);
                 txtPassword.setBackgroundResource(R.drawable.edit_text);
-                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-            }else if(password.isEmpty()){
+
+            }else {
                 txtEmail.setBackgroundResource(R.drawable.edit_text);
                 txtPassword.setBackgroundResource(R.drawable.edit_text_error);
-                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
             }
 
-            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         }
         else{
 
+            usuario = new Usuario();
+            usuario.setEmail(email);
+            usuario.setSenha(password);
+
             progressButton.buttonActivatedLoggin();
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            auth.signInWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @RequiresApi(api = Build.VERSION_CODES.Q)
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                                            
+
                         txtEmail.setBackgroundResource(R.drawable.edit_text);
                         txtPassword.setBackgroundResource(R.drawable.edit_text);
 
                         progressButton.buttonFinished();
 
+                        // Abrir activity principal
                         Intent i = new Intent(MainActivity.this, Menu.class);
                         startActivity(i);
                         finish();
@@ -203,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
                         Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                         v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.EFFECT_DOUBLE_CLICK));
 
+                        // Mudar a borda do edit text
                         txtEmail.setBackgroundResource(R.drawable.edit_text_error);
                         txtPassword.setBackgroundResource(R.drawable.edit_text_error);
 
@@ -214,9 +223,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         },1500);
 
-
                         progressButton.buttonErrorLoggin();
-
 
 
                     }
@@ -230,34 +237,75 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Botão pra abrir a activity de cadastro
+
     public void register(View v) {
         Intent intent = new Intent(this, RegisterActivity.class);
 
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 
+
+        // Se a janela de login estiver aberta , fechar ela
         if(bottomSheetBehavior.getState()== BottomSheetBehavior.STATE_EXPANDED){
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
     }
 
 
+    // Botão pra abrir a activity de recuperar senha
     public void recover() {
         Intent intent = new Intent(this, RecoveryActivity.class);
 
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 
+        // Se a janela de login estiver aberta , fechar ela
         if(bottomSheetBehavior.getState()== BottomSheetBehavior.STATE_EXPANDED){
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
     }
 
 
+    // Executa quando startar
     @Override
     protected void onStart() {
         super.onStart();
         auth = Conexao.getFirebaseAuth();
+
+    }
+
+
+    // Alerta Dialog pra confirmar se usuario deseja sair
+
+    public void confirmaSair(){
+
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.alert_exit);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Button sair,cancelar;
+
+        sair = dialog.findViewById(R.id.btn_Alert_Sair);
+        cancelar = dialog.findViewById(R.id.btn_Alert_Cancelar);
+
+
+        // Ação do botão "sair"
+        sair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        // Ação do botão "Cancelar"
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
     }
 

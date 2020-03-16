@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         // Tempo do splash
-        int SPLASH_TIME_OUT = 2500;
+        int SPLASH_TIME_OUT = 1600;
 
         new Handler().postDelayed(new Runnable() {
             /*
