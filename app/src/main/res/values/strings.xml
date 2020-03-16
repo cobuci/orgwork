@@ -1,47 +1,47 @@
 <resources>
     // Nome do aplicativo
-        <string name="app_name">OrgWork</string>
+    <string name="app_name">OrgWork</string>
 
     // Login Sheet
-        <string name="Text_Button_Login">Login</string>
+    <string name="Text_Button_Login">Login</string>
 
     // Main Activity
-        <string name="Text_Titulo_Main_Activity">Organize seu mundo</string>
-        <string name="Text_Subtitulo_Main_Activity">OrgWork</string>
-        <string name="Button_Login_Activity_Main">Login</string>
-        <string name="Button_Registro_Activity_Main">Register</string>
+    <string name="Text_Titulo_Main_Activity">Organize seu mundo</string>
+    <string name="Text_Subtitulo_Main_Activity">OrgWork</string>
+    <string name="Button_Login_Activity_Main">Login</string>
+    <string name="Button_Registro_Activity_Main">Register</string>
 
     // Login Activity
-        <string name="Text_Titulo_Activity_Login">Welcome Back</string>
-        <string name="Text_Subtitulo_Activity_Login">Login to your account</string>
-        <string name="Text_Recover_Activity_Login">Forgot your password?</string>
-        <string name="Text_Register_Activity_Login">Don\'t have an account Sign in</string>
-        <string name="Hint_Email_Activity_Login">E-mail</string>
-        <string name="Hint_Password_Activity_Login">Password</string>
+    <string name="Text_Titulo_Activity_Login">Welcome Back</string>
+    <string name="Text_Subtitulo_Activity_Login">Login to your account</string>
+    <string name="Text_Recover_Activity_Login">Forgot your password?</string>
+    <string name="Text_Register_Activity_Login">Don\'t have an account Sign in</string>
+    <string name="Hint_Email_Activity_Login">E-mail</string>
+    <string name="Hint_Password_Activity_Login">Password</string>
 
     // Recovery Activity
-        <string name="Text_Titulo_Activity_Recover">Welcome Back</string>
-        <string name="Text_Subtitulo_Activity_Recover">Recover your password</string>
-        <string name="Hint_Email__Activity_Recover">E-mail</string>
+    <string name="Text_Titulo_Activity_Recover">Welcome Back</string>
+    <string name="Text_Subtitulo_Activity_Recover">Recover your password</string>
+    <string name="Hint_Email__Activity_Recover">E-mail</string>
 
     // Register Activity
-        <string name="Text_Titulo_Activity_Register">Welcome Back</string>
-        <string name="Text_Subtitulo_Activity_Register">Create a new account</string>
-        <string name="Text_Login_Activity_Register">Already have an account Login</string>
-        <string name="Hint_Email_Activity_Register">E-mail</string>
-        <string name="Hint_Name_Activity_Register">Name</string>
-        <string name="Hint_Password_Activity_Register">Password</string>
+    <string name="Text_Titulo_Activity_Register">Welcome Back</string>
+    <string name="Text_Subtitulo_Activity_Register">Create a new account</string>
+    <string name="Text_Login_Activity_Register">Already have an account Login</string>
+    <string name="Hint_Email_Activity_Register">E-mail</string>
+    <string name="Hint_Name_Activity_Register">Name</string>
+    <string name="Hint_Password_Activity_Register">Password</string>
 
     // Home Activity
-        <string name="Text_Titulo_Activity_Home">Inicio</string>
+    <string name="Text_Titulo_Activity_Home">Inicio</string>
 
     // Agenda Activity
-        <string name="Text_Titulo_Activity_Agenda">Agenda</string>
+    <string name="Text_Titulo_Activity_Agenda">Agenda</string>
 
     // Profile Activity
-        <string name="Text_Titulo_Activity_Perfil">Perfil</string>
-        <string name="Text_Nome_Activity_Perfil">Nome</string>
-        <string name="Button_Logout_Activity_Perfil">Sair</string>
+    <string name="Text_Titulo_Activity_Perfil">Perfil</string>
+    <string name="Text_Nome_Activity_Perfil">Nome</string>
+    <string name="Button_Logout_Activity_Perfil">Sair</string>
 
 
 </resources>

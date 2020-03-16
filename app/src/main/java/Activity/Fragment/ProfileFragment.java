@@ -19,6 +19,7 @@ import Activity.SplashActivity;
 import Class.Conexao;
 import Class.Usuario;
 
+
 public class ProfileFragment extends Fragment {
 
     private Usuario usuario;
@@ -42,6 +43,7 @@ public class ProfileFragment extends Fragment {
                getActivity().finish();
                Intent intent = new Intent(v.getContext(), SplashActivity.class);
                startActivity(intent);
+               getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
            }
        });
 

@@ -7,13 +7,14 @@
 
     <application
         android:allowBackup="true"
-        android:windowSoftInputMode="stateVisible|adjustResize"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateVisible|adjustResize">
+        <activity android:name="Activity.AdministratorActivity"></activity>
         <activity android:name="Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +25,7 @@
         <activity android:name="Activity.RecoveryActivity" />
         <activity android:name=".Menu" />
         <activity android:name="Activity.RegisterActivity" />
-        <activity android:name="Activity.MainActivity"/>
-
+        <activity android:name="Activity.MainActivity" />
     </application>
 
 </manifest>

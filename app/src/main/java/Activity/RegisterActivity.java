@@ -167,14 +167,16 @@ public class RegisterActivity extends AppCompatActivity {
             auth.createUserWithEmailAndPassword(
                     usuario.getEmail(),
                     usuario.getSenha())
+
                     .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if(task.isSuccessful()){
                                 userProfile();
-
+                                usuario.setTipoUsuario("Usuario");
                                 insereUsuario(usuario);
+
                                 progressButton.buttonFinished();
 
 

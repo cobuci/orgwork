@@ -7,7 +7,7 @@ public class Usuario {
 
     private String email,senha,nome;
     private String keyUsuario;
-
+    private String tipoUsuario;
 
 
     public String getEmail() {
@@ -34,6 +34,15 @@ public class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
 

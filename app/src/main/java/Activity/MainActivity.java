@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.orgwork.renewed.Menu;
 import com.orgwork.renewed.R;
 
@@ -35,14 +41,15 @@ public class MainActivity extends AppCompatActivity {
 
     View LoginButton, RecoverButton;
 
-
-
-
+    private DatabaseReference referenciaFirebase;
+    private String tipoUsuarioEmail;
+    private TextView tipoUsuario;
 
     // Firebase
     private EditText txtEmail,txtPassword;
     private FirebaseAuth auth;
     private Usuario usuario;
+
 
 
 
@@ -60,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         // FIREBASE
         txtPassword = findViewById(R.id.txtPassword);
         txtEmail = findViewById(R.id.txtEmail);
+        tipoUsuario = findViewById(R.id.txtTipoLogin);
+        referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
         //Status bar Transparente
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -201,9 +210,40 @@ public class MainActivity extends AppCompatActivity {
                         progressButton.buttonFinished();
 
                         // Abrir activity principal
-                        Intent i = new Intent(MainActivity.this, Menu.class);
-                        startActivity(i);
-                        finish();
+                        auth = FirebaseAuth.getInstance();
+                        String emailFir = auth.getCurrentUser().getEmail();
+
+                        referenciaFirebase.child("usuarios").orderByChild("email").equalTo(emailFir).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    tipoUsuarioEmail = postSnapshot.child("tipoUsuario").getValue().toString();
+                                    tipoUsuario.setText(tipoUsuarioEmail);
+
+                                    if (tipoUsuarioEmail.equals("ADM")) {
+
+                                        Intent iAdm = new Intent(MainActivity.this,
+                                                AdministratorActivity.class);
+                                        startActivity(iAdm);
+                                        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+
+                                    } else{
+                                        Intent i = new Intent(MainActivity.this,
+                                                Menu.class);
+                                        startActivity(i);
+                                        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                                    }
+                                    finish();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
 
 
                     }else{
