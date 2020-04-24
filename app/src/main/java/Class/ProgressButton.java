@@ -29,7 +29,7 @@ public class ProgressButton {
     }
 
     public void buttonRegister(){
-        textView.setText("Register");
+        textView.setText("Registrar");
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.colorPrimary));
     }
     public void buttonLoggin(){
@@ -38,11 +38,11 @@ public class ProgressButton {
     }
     public void buttonActivatedRegister(){
         progressBar.setVisibility(View.VISIBLE);
-        textView.setText("Signing up...");
+        textView.setText("Cadastrando...");
     }
     public void buttonActivatedLoggin(){
         progressBar.setVisibility(View.VISIBLE);
-        textView.setText("Logging in...");
+        textView.setText("Entrando...");
     }
     public void buttonFinished(){
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.green));
@@ -52,13 +52,13 @@ public class ProgressButton {
     public void buttonError(){
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.Red));
         progressBar.setVisibility(View.GONE);
-        textView.setText("Invalid email");
+        textView.setText("E-mail Invalido");
     }
 
     public void buttonErrorLoggin(){
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.Red));
         progressBar.setVisibility(View.GONE);
-        textView.setText("Invalid credentials");
+        textView.setText("Credenciais invalidas");
     }
     public void buttonRecover(){
         textView.setText("Recover");

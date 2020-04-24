@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateVisible|adjustResize">
-        <activity android:name="Activity.AdministratorActivity"></activity>
+        <activity android:name=".Activity" />
+        <activity android:name="Activity.AdministratorActivity" />
         <activity android:name="Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

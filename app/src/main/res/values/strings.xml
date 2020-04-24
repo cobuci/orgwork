@@ -9,28 +9,28 @@
     <string name="Text_Titulo_Main_Activity">Organize seu mundo</string>
     <string name="Text_Subtitulo_Main_Activity">OrgWork</string>
     <string name="Button_Login_Activity_Main">Login</string>
-    <string name="Button_Registro_Activity_Main">Register</string>
+    <string name="Button_Registro_Activity_Main">Registrar</string>
 
     // Login Activity
-    <string name="Text_Titulo_Activity_Login">Welcome Back</string>
-    <string name="Text_Subtitulo_Activity_Login">Login to your account</string>
-    <string name="Text_Recover_Activity_Login">Forgot your password?</string>
-    <string name="Text_Register_Activity_Login">Don\'t have an account Sign in</string>
+    <string name="Text_Titulo_Activity_Login">Bem vindo de volta</string>
+    <string name="Text_Subtitulo_Activity_Login">Faça login na sua conta</string>
+    <string name="Text_Recover_Activity_Login">Esqueceu sua senha?</string>
+    <string name="Text_Register_Activity_Login">Cadastre-se</string>
     <string name="Hint_Email_Activity_Login">E-mail</string>
-    <string name="Hint_Password_Activity_Login">Password</string>
+    <string name="Hint_Password_Activity_Login">Senha</string>
 
     // Recovery Activity
-    <string name="Text_Titulo_Activity_Recover">Welcome Back</string>
-    <string name="Text_Subtitulo_Activity_Recover">Recover your password</string>
+    <string name="Text_Titulo_Activity_Recover">Bem vindo de volta!</string>
+    <string name="Text_Subtitulo_Activity_Recover">Recuperar senha</string>
     <string name="Hint_Email__Activity_Recover">E-mail</string>
 
     // Register Activity
-    <string name="Text_Titulo_Activity_Register">Welcome Back</string>
-    <string name="Text_Subtitulo_Activity_Register">Create a new account</string>
-    <string name="Text_Login_Activity_Register">Already have an account Login</string>
+    <string name="Text_Titulo_Activity_Register">Bem vindo de volta</string>
+    <string name="Text_Subtitulo_Activity_Register">Criar uma nova conta</string>
+    <string name="Text_Login_Activity_Register">Já possuo uma conta</string>
     <string name="Hint_Email_Activity_Register">E-mail</string>
-    <string name="Hint_Name_Activity_Register">Name</string>
-    <string name="Hint_Password_Activity_Register">Password</string>
+    <string name="Hint_Name_Activity_Register">Nome</string>
+    <string name="Hint_Password_Activity_Register">Senha</string>
 
     // Home Activity
     <string name="Text_Titulo_Activity_Home">Inicio</string>
