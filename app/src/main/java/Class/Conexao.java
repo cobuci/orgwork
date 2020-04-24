@@ -19,6 +19,7 @@ public class Conexao {
     private static FirebaseStorage storage;
     private static StorageReference referenciaStorage;
 
+
     public static DatabaseReference getFirebase() {
         if (referenciaFirebase == null) {
             referenciaFirebase = FirebaseDatabase.getInstance().getReference();

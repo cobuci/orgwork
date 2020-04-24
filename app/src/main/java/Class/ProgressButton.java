@@ -61,7 +61,7 @@ public class ProgressButton {
         textView.setText("Credenciais invalidas");
     }
     public void buttonRecover(){
-        textView.setText("Recover");
+        textView.setText("Recuperar");
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.colorPrimary));
     }
 

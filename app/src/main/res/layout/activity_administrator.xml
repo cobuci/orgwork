@@ -61,6 +61,7 @@
         android:layout_height="51dp"
         android:background="@drawable/button_login"
         android:drawableStart="@drawable/ic_person_add"
+        android:onClick="cadastrarAdm"
         android:padding="15dp"
         android:text="Cadastrar ADM"
         android:textColor="#8BFFFFFF"
@@ -69,4 +70,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:layout_constraintVertical_bias="0.36" />
+
+    <TextView
+        android:id="@+id/txtWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bem Vindo, Fulano !"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

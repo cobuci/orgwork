@@ -3,6 +3,7 @@ package Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,10 +16,16 @@ import Class.Conexao;
 public class AdministratorActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private TextView textView;
+
+    View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administrator);
+
+
+
     }
 
 
@@ -27,7 +34,20 @@ public class AdministratorActivity extends AppCompatActivity {
         super.onStart();
         auth = Conexao.getFirebaseAuth();
         user = Conexao.getFirebaseUser();
+        textWelcome();
 
+
+
+    }
+
+    public void textWelcome(){
+        if (user == null){
+
+
+        }else {
+            textView = findViewById(R.id.txtWelcome);
+            textView.setText("Bem vindo, " + user.getDisplayName() +" !");
+        }
 
     }
 
@@ -38,6 +58,15 @@ public class AdministratorActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
         finish();
+    }
+
+    public void cadastrarAdm(View v){
+
+        Intent rAdm = new Intent(AdministratorActivity.this,
+                RegisterAdmActivity.class);
+        startActivity(rAdm);
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+
     }
 
 }
