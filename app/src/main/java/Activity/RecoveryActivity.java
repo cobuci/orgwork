@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.orgwork.renewed.R;
 
@@ -21,16 +22,15 @@ import Class.ProgressButton;
 public class RecoveryActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private EditText txtEmail;
     View view;
-
+    TextInputLayout ILemailRecover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recover);
 
-
+        ILemailRecover = findViewById(R.id.ILemailRecover);
 
         view = findViewById(R.id.btnRecover);
 
@@ -51,13 +51,14 @@ public class RecoveryActivity extends AppCompatActivity {
 
     private void resetPassword() {
 
-        txtEmail =  findViewById(R.id.txtEmailRecover);
+        EditText txtEmail = findViewById(R.id.txtEmailRecover);
         String email = txtEmail.getText().toString().trim();
 
         final ProgressButton progressButton = new ProgressButton(RecoveryActivity.this, view);
 
-        if (email.equals("")){
-            ToastCurto("Digite um email valido");
+        if (email.isEmpty()){
+
+            ILemailRecover.setError("Digite um email valido.");
 
         }else {
             auth
@@ -71,6 +72,8 @@ public class RecoveryActivity extends AppCompatActivity {
                                 finish();
                             }else {
                                 progressButton.buttonError();
+                                ILemailRecover.setError("Digite um email valido.");
+
                             }
                         }
                     });

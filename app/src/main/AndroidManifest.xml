@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateVisible|adjustResize">
-        <activity android:name="Activity.RegisterAdmActivity"></activity>
+        <activity android:name="Activity.ChangePasswordActivity"></activity>
+        <activity android:name="Activity.RegisterAdmActivity" />
         <activity android:name=".Activity" />
         <activity android:name="Activity.AdministratorActivity" />
         <activity android:name="Activity.SplashActivity">

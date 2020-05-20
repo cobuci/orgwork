@@ -52,7 +52,7 @@ public class ProgressButton {
     public void buttonError(){
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.Red));
         progressBar.setVisibility(View.GONE);
-        textView.setText("E-mail Invalido");
+
     }
 
     public void buttonErrorLoggin(){
@@ -62,6 +62,10 @@ public class ProgressButton {
     }
     public void buttonRecover(){
         textView.setText("Recuperar");
+        layout.setBackgroundColor(cardView.getResources().getColor(R.color.colorPrimary));
+    }
+    public void buttonChange(){
+        textView.setText("Alterar senha");
         layout.setBackgroundColor(cardView.getResources().getColor(R.color.colorPrimary));
     }
 

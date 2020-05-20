@@ -34,21 +34,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-
-    <EditText
-        android:id="@+id/txtEmailRecover"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ILemailRecover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edit_text"
-        android:hint="@string/Hint_Email__Activity_Recover"
-        android:inputType="textWebEmailAddress"
-        android:padding="12.5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        app:errorEnabled="true"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        android:autofillHints="" />
+        tools:layout_editor_absoluteX="20dp">
+
+        <EditText
+            android:id="@+id/txtEmailRecover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="@string/Hint_Email__Activity_Recover"
+            android:inputType="textWebEmailAddress"
+            android:padding="12.5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="133dp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <include
@@ -56,11 +66,11 @@
         layout="@layout/progress_btn_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmailRecover" />
+        app:layout_constraintTop_toBottomOf="@+id/ILemailRecover" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

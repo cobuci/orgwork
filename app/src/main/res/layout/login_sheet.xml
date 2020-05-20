@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="450dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     android:padding="20dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_layout"
     android:background="@drawable/background_login">
 
@@ -32,25 +34,50 @@
         android:gravity="center"
         android:layout_marginBottom="20dp"/>
 
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/edit_text"
-        android:hint="@string/Hint_Email_Activity_Login"
-        android:inputType="textWebEmailAddress"
-        android:padding="12.5dp" />
 
-    <EditText
-        android:id="@+id/txtPassword"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ILemailLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:errorEnabled="true"
+        app:counterEnabled="false"
+        tools:layout_editor_absoluteX="20dp">
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/edit_text"
+            android:hint="@string/Hint_Email_Activity_Login"
+            android:inputType="textWebEmailAddress"
+            android:padding="12.5dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ILsenhaLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/edit_text"
-        android:hint="@string/Hint_Password_Activity_Login"
-        android:inputType="textPassword"
-        android:padding="12.5dp" />
+        app:errorEnabled="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:passwordToggleEnabled="true"
+        tools:layout_editor_absoluteX="20dp">
+
+         <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text"
+            android:hint="@string/Hint_Password_Activity_Login"
+            android:inputType="textPassword"
+            android:padding="12.5dp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 

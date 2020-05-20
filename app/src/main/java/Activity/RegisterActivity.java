@@ -6,6 +6,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,13 +38,16 @@ public class RegisterActivity extends AppCompatActivity {
     private Usuario usuario;
     private FirebaseAuth auth;
     View view;
-
+    TextInputLayout textInputLayoutUserCad,textInputLayoutSenhaCad,textInputLayoutEmailCad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        textInputLayoutUserCad = findViewById(R.id.textInputLayoutUserCad);
+        textInputLayoutSenhaCad = findViewById(R.id.textInputLayoutSenhaCad);
+        textInputLayoutEmailCad = findViewById(R.id.textInputLayoutEmailCad);
 
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword =  findViewById(R.id.txtPassword);
@@ -60,6 +65,18 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // Remover erros quando clicar
+
+
+    }
+
+    public void TextFieldClicked(View view){
+        if(view.getId()==R.id.textInputLayoutUserCad);
+        textInputLayoutUserCad.setError(null);
+        if(view.getId()==R.id.textInputLayoutSenhaCad);
+        textInputLayoutSenhaCad.setError(null);
+        if(view.getId()==R.id.textInputLayoutEmailCad);
+        textInputLayoutEmailCad.setError(null);
     }
 
 
@@ -98,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void cadastro(){
             // Vibração
         Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
+        escondeTeclado();
 
 
         String username = txtUsername.getText().toString().trim();
@@ -110,101 +127,109 @@ public class RegisterActivity extends AppCompatActivity {
                 v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 if(username.isEmpty() && password.isEmpty() && email.isEmpty()){
                     // Error
-                    txtUsername.setBackgroundResource(R.drawable.edit_text_error);
-                    txtEmail.setBackgroundResource(R.drawable.edit_text_error);
-                    txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+
+                    textInputLayoutUserCad.setError("Este campo não pode ficar em branco.");
+                    textInputLayoutSenhaCad.setError("Este campo não pode ficar em branco.");
+                    textInputLayoutEmailCad.setError("Este campo não pode ficar em branco.");
                 }else if(username.isEmpty() && password.isEmpty()){
                     // Error
-                    txtUsername.setBackgroundResource(R.drawable.edit_text_error);
-                    txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                    textInputLayoutUserCad.setError("Este campo não pode ficar em branco.");
+                    textInputLayoutSenhaCad.setError("Este campo não pode ficar em branco.");
                     // success
-                    txtEmail.setBackgroundResource(R.drawable.edit_text);
+                    textInputLayoutEmailCad.setError(null);
                 }else if(username.isEmpty() && email.isEmpty()){
                     // Error
-                    txtUsername.setBackgroundResource(R.drawable.edit_text_error);
-                    txtEmail.setBackgroundResource(R.drawable.edit_text_error);
+                    textInputLayoutUserCad.setError("Este campo não pode ficar em branco.");
+                    textInputLayoutEmailCad.setError("Este campo não pode ficar em branco.");
                     // success
-                    txtPassword.setBackgroundResource(R.drawable.edit_text);
+                    textInputLayoutSenhaCad.setError(null);
                 } else if(email.isEmpty() && password.isEmpty()){
                     // Error
-                    txtEmail.setBackgroundResource(R.drawable.edit_text_error);
-                    txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                    textInputLayoutEmailCad.setError("Este campo não pode ficar em branco.");
+                    textInputLayoutSenhaCad.setError("Este campo não pode ficar em branco.");
                     // success
-                    txtUsername.setBackgroundResource(R.drawable.edit_text);
+                    textInputLayoutUserCad.setError(null);
                 }else if (email.isEmpty()){
                     // Error
-                    txtEmail.setBackgroundResource(R.drawable.edit_text_error);
+                    textInputLayoutEmailCad.setError("Este campo não pode ficar em branco.");
                     // success
-                    txtUsername.setBackgroundResource(R.drawable.edit_text);
-                    txtPassword.setBackgroundResource(R.drawable.edit_text);
+                    textInputLayoutUserCad.setError(null);
+                    textInputLayoutSenhaCad.setError(null);
                 }else if(username.isEmpty()){
                     // Error
-                    txtUsername.setBackgroundResource(R.drawable.edit_text_error);
+                    textInputLayoutUserCad.setError("Este campo não pode ficar em branco.");
                     // success
-                    txtPassword.setBackgroundResource(R.drawable.edit_text);
-                    txtEmail.setBackgroundResource(R.drawable.edit_text);
+                    textInputLayoutSenhaCad.setError(null);
+                    textInputLayoutEmailCad.setError(null);
                 }else{
                     // Error
-                    txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                    textInputLayoutSenhaCad.setError("Este campo não pode ficar em branco.");
                     // success
-                    txtUsername.setBackgroundResource(R.drawable.edit_text);
-                    txtEmail.setBackgroundResource(R.drawable.edit_text);
+                    textInputLayoutUserCad.setError(null);
+                    textInputLayoutEmailCad.setError(null);
                 }
 
 
             }else {
 
+                if(txtPassword.length() <8){
+                    textInputLayoutSenhaCad.setError("A senha deve ter pelo menos 8 caracteres.");
+                }else
+                {
 
-            usuario.setEmail(txtEmail.getText().toString());
-            usuario.setSenha(txtPassword.getText().toString());
-            usuario.setNome(txtUsername.getText().toString());
+                    usuario.setEmail(txtEmail.getText().toString());
+                    usuario.setSenha(txtPassword.getText().toString());
+                    usuario.setNome(txtUsername.getText().toString());
 
-            final ProgressButton progressButton = new ProgressButton(RegisterActivity.this, view);
+                    final ProgressButton progressButton = new ProgressButton(RegisterActivity.this, view);
 
-            progressButton.buttonActivatedRegister();
-
-
-            auth.createUserWithEmailAndPassword(
-                    usuario.getEmail(),
-                    usuario.getSenha())
-
-                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            if(task.isSuccessful()){
-                                userProfile();
-                                usuario.setTipoUsuario("Usuario");
-                                insereUsuario(usuario);
-
-                                progressButton.buttonFinished();
+                    progressButton.buttonActivatedRegister();
 
 
-                                Handler handler1 = new Handler();
-                                handler1.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
+                    auth.createUserWithEmailAndPassword(
+                            usuario.getEmail(),
+                            usuario.getSenha())
 
-                                        finish();
+                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                    if(task.isSuccessful()){
+                                        userProfile();
+                                        usuario.setTipoUsuario("Usuario");
+                                        insereUsuario(usuario);
+
+                                        progressButton.buttonFinished();
+
+
+                                        Handler handler1 = new Handler();
+                                        handler1.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                finish();
+                                            }
+                                        },1000);
+
+                                    }else {
+
+
+                                        Handler handler1 = new Handler();
+                                        handler1.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                progressButton.buttonRegister();
+                                            }
+                                        },1500);
+
+                                        progressButton.buttonError();
                                     }
-                                },1000);
 
-                            }else {
+                                }
+                            });
 
 
-                                Handler handler1 = new Handler();
-                                handler1.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        progressButton.buttonRegister();
-                                    }
-                                },1500);
-
-                                progressButton.buttonError();
-                            }
-
-                        }
-                    });
+            }
         }
     }
 
@@ -249,6 +274,14 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }catch (Exception e){
             return false;
+        }
+    }
+
+    public void escondeTeclado(){
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager)
+                    getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
