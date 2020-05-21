@@ -1,5 +1,6 @@
 package Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.orgwork.renewed.Menu;
 import com.orgwork.renewed.R;
 
 import Class.Conexao;
@@ -208,6 +210,9 @@ public class RegisterActivity extends AppCompatActivity {
                                             public void run() {
 
                                                 finish();
+                                                Intent intentF = new Intent(RegisterActivity.this, Menu.class);
+                                                startActivity(intentF);
+                                                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                                             }
                                         },1000);
 
@@ -269,7 +274,11 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean insereUsuario(Usuario usuario){
         try{
             reference = Conexao.getFirebase().child("usuarios");
-            reference.push().setValue(usuario);
+
+            String key = reference.push().getKey();
+            usuario.setKeyUsuario(key);
+
+            reference.child(key).setValue(usuario);
 
             return true;
         }catch (Exception e){

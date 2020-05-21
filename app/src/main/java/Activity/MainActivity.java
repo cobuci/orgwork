@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private Usuario usuario;
 
 
-
+    TextInputLayout ILemailLogin, ILsenhaLogin;
 
     // Bottom Sheet TELA LOGIN
     private BottomSheetBehavior bottomSheetBehavior;
@@ -63,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Layout Edit Text
+        ILemailLogin = findViewById(R.id.ILemailLogin);
+        ILsenhaLogin = findViewById(R.id.ILsenhaLogin);
 
         // FIREBASE
         txtPassword = findViewById(R.id.txtPassword);
@@ -179,15 +184,15 @@ public class MainActivity extends AppCompatActivity {
             v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
             if(email.isEmpty() && password.isEmpty()){
 
-                txtEmail.setBackgroundResource(R.drawable.edit_text_error);
-                txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                ILemailLogin.setError("Este campo não pode ficar em branco");
+                ILsenhaLogin.setError("Este campo não pode ficar em branco");
             }else if(email.isEmpty()){
-                txtEmail.setBackgroundResource(R.drawable.edit_text_error);
-                txtPassword.setBackgroundResource(R.drawable.edit_text);
+                ILemailLogin.setError("Este campo não pode ficar em branco");
+                ILsenhaLogin.setError(null);
 
             }else {
-                txtEmail.setBackgroundResource(R.drawable.edit_text);
-                txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                ILemailLogin.setError(null);
+                ILsenhaLogin.setError("Este campo não pode ficar em branco");
             }
 
         }
@@ -252,8 +257,8 @@ public class MainActivity extends AppCompatActivity {
                         v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.EFFECT_DOUBLE_CLICK));
 
                         // Mudar a borda do edit text
-                        txtEmail.setBackgroundResource(R.drawable.edit_text_error);
-                        txtPassword.setBackgroundResource(R.drawable.edit_text_error);
+                        ILsenhaLogin.setError(" ");
+                        ILemailLogin.setError(" ");
 
                         Handler handler1 = new Handler();
                         handler1.postDelayed(new Runnable() {

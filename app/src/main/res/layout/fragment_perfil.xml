@@ -26,72 +26,101 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_email_perfil"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:drawableStart="@drawable/ic_email"
-        android:drawablePadding="5dp"
-        android:text="loremimpsum@lorem.com"
-        android:textAlignment="textEnd"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_nome_perfil"
-        tools:ignore="HardcodedText" />
 
-
-    <TextView
-        android:id="@+id/txt_senha_perfil"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:drawableStart="@drawable/ic_password"
-        android:drawablePadding="5dp"
-        android:text="************"
-        android:textAlignment="textEnd"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email_perfil"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/txt_nome_perfil"
+    <Button
+        android:id="@+id/btn_MudarSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/ic_person_2"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
+        android:drawableStart="@drawable/ic_password"
         android:drawablePadding="5dp"
-        android:text="@string/Text_Nome_Activity_Perfil"
-        android:textSize="20sp"
+        android:text="alterar senha"
+        android:textAllCaps="false"
+        android:textColor="#85070707"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
+    <Button
+        android:id="@+id/btn_ExcluirConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawablePadding="5dp"
+        android:text="excluir cadastro"
+        android:textAllCaps="false"
+        android:textColor="#85070707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_MudarSenha" />
 
     <Button
         android:id="@+id/btn_Sair"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
         android:background="#00FFFFFF"
         android:drawableStart="@drawable/ic_exit"
-        android:text="@string/Button_Logout_Activity_Perfil"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:drawablePadding="5dp"
+        android:text="sair da conta"
+        android:textAllCaps="false"
+        android:textColor="#85070707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ExcluirConta" />
 
-    <Button
-        android:id="@+id/btn_MudarSenha"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="16dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="0dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:background="#00FFFFFF"
-        android:backgroundTint="#00FFFFFF"
-        android:drawableStart="@drawable/ic_edit"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email_perfil" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_email_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="5dp"
+                android:text="loremimpsum@lorem.com"
+                android:textAlignment="textEnd"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_nome_perfil"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/txt_nome_perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:drawablePadding="5dp"
+                android:text="@string/Text_Nome_Activity_Perfil"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

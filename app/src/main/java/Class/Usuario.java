@@ -46,4 +46,11 @@ public class Usuario {
     }
 
 
+    public String getKeyUsuario() {
+        return keyUsuario;
+    }
+
+    public void setKeyUsuario(String keyUsuario) {
+        this.keyUsuario = keyUsuario;
+    }
 }
