@@ -163,6 +163,7 @@ public class ProfileFragment extends Fragment {
             email = getView().findViewById(R.id.txt_email_perfil);
             name = getView().findViewById(R.id.txt_nome_perfil);
 
+
             email.setText(user.getEmail());
             name.setText(user.getDisplayName());
 

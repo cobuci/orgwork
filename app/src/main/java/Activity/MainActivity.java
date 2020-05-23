@@ -1,7 +1,6 @@
 package Activity;
 
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     private long mBackPressed;
     public void onBackPressed() {
         if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
-            confirmaSair();
+            finishAffinity();
             if(bottomSheetBehavior.getState()== BottomSheetBehavior.STATE_EXPANDED){
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
@@ -321,38 +320,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Alerta Dialog pra confirmar se usuario deseja sair
-
-    public void confirmaSair(){
-
-        final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setContentView(R.layout.alert_exit);
-        dialog.setCancelable(false);
-        dialog.show();
-
-        Button sair,cancelar;
-
-        sair = dialog.findViewById(R.id.btn_Alert_Sair);
-        cancelar = dialog.findViewById(R.id.btn_Alert_Cancelar);
-
-
-        // Ação do botão "sair"
-        sair.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        // Ação do botão "Cancelar"
-        cancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-    }
 
 
 }

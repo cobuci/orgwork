@@ -1,9 +1,11 @@
 package Activity.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,17 +25,17 @@ import com.orgwork.renewed.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Activity.NewPostActivity;
 import Adapter.BlogAdapter;
 import Class.Blog;
 import Class.Conexao;
+public class HomeFragmentADM extends Fragment {
 
-
-public class HomeFragment extends Fragment {
 
 
     private FirebaseAuth auth;
     private FirebaseUser user;
-
+    private Button btnNovoPost;
     private RecyclerView mRecyclerView;
     private BlogAdapter adapter;
     private List<Blog> blogs;
@@ -41,17 +43,25 @@ public class HomeFragment extends Fragment {
     private Blog todosPosts;
     private LinearLayoutManager mLayoutManager;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_adm, container, false);
+
+        // botao new post
+        btnNovoPost = view.findViewById(R.id.btnNovoPost);
+
+        btnNovoPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iAdm = new Intent(getActivity(),
+                        NewPostActivity.class);
+                startActivity(iAdm);
+                getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            }
+        });
 
 
-
-
-
-        // Lista
         mRecyclerView = (RecyclerView)view.findViewById(R.id.recyclerViewBlog);
 
         carregarPosts();
@@ -68,7 +78,7 @@ public class HomeFragment extends Fragment {
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
 
-        referenciaFirebase.child("post").orderByChild("nome").addValueEventListener(new ValueEventListener() {
+        referenciaFirebase.child("post").orderByChild("keyPost").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -106,3 +116,5 @@ public class HomeFragment extends Fragment {
 
     }
 }
+
+

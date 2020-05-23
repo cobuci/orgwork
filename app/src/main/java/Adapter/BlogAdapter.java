@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +21,7 @@ import java.util.List;
 
 import Class.Blog;
 
+
 public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
 
     private List<Blog> mBlogList;
@@ -29,6 +29,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
     private DatabaseReference referenciaFirebase;
     private List<Blog> blogs;
     private Blog todosPosts;
+
 
     public BlogAdapter (List<Blog> l, Context c){
         context = c;
@@ -45,6 +46,8 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BlogAdapter.ViewHolder holder, int position) {
+
+
 
         final Blog item = mBlogList.get(position);
 
@@ -76,21 +79,15 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
 
         holder.txtNome.setText(item.getNome());
         holder.txtDescricao.setText(item.getDescricao());
+        holder.txtAutor.setText(item.getAutor());
+        holder.txtData.setText(item.getTimestamp());
 
-
-        holder.linearLayoutBlog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
 
     }
 
     @Override
-
     public int getItemCount() {
 
         return mBlogList.size();
@@ -103,14 +100,18 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
 
         protected TextView txtNome;
         protected TextView txtDescricao;
-        protected LinearLayout linearLayoutBlog;
+        protected TextView txtAutor;
+        protected TextView txtData;
+
 
         public ViewHolder (View itemView){
             super(itemView);
 
             txtNome = (TextView)itemView.findViewById(R.id.txt_Nome_Post);
             txtDescricao = (TextView)itemView.findViewById(R.id.txt_Descricao_Post);
-            linearLayoutBlog = (LinearLayout)itemView.findViewById(R.id.linearLayoutBlog);
+            txtAutor = (TextView)itemView.findViewById(R.id.txAutor);
+            txtData = (TextView)itemView.findViewById(R.id.txData);
+
 
         }
     }

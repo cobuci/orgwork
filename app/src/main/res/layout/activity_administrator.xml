@@ -1,84 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Activity.AdministratorActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+
+    <FrameLayout
+        android:id="@+id/fragment_container_adm"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:background="@color/colorPrimary"
-        tools:ignore="MissingConstraints">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"/>
 
 
-        <TextView
-            android:id="@+id/txt_nome_adm"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/Text_Titulo_Activity_Home"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:typeface="normal" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="300dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/button_login"
-        android:drawableStart="@drawable/ic_exit"
-        android:onClick="deslogarAdm"
-        android:padding="15dp"
-        android:text="Logout"
-        android:textColor="#8BFFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="300dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/button_login"
-        android:drawableStart="@drawable/ic_post_add"
-        android:padding="15dp"
-        android:text="Adicionar Post"
-        android:textColor="#8BFFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="300dp"
-        android:layout_height="51dp"
-        android:background="@drawable/button_login"
-        android:drawableStart="@drawable/ic_person_add"
-        android:onClick="cadastrarAdm"
-        android:padding="15dp"
-        android:text="Cadastrar ADM"
-        android:textColor="#8BFFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.36" />
-
-    <TextView
-        android:id="@+id/txtWelcome"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menu_adm"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bem Vindo, Fulano !"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_adm"
+        android:background="@color/colorPrimary"
+        app:itemTextColor="@color/bottom_nav"
+        app:itemIconTint="@color/bottom_nav"/>
+
+
+
+</RelativeLayout>
