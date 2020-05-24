@@ -36,6 +36,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
+    // picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
     //imagem circular
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
     //noinspection GradleCompatible

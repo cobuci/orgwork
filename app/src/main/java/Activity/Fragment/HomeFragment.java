@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
 
 
         // Lista
-        mRecyclerView = (RecyclerView)view.findViewById(R.id.recyclerViewBlog);
+        mRecyclerView = view.findViewById(R.id.recyclerViewBlog);
 
         carregarPosts();
 
@@ -67,6 +67,9 @@ public class HomeFragment extends Fragment {
 
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
+        // Inverter Lista
+        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager.setReverseLayout(true);
 
         referenciaFirebase.child("post").orderByChild("nome").addValueEventListener(new ValueEventListener() {
             @Override

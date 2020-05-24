@@ -20,10 +20,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_adm"
+        android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
+        app:itemIconTint="@color/bottom_nav"
         app:itemTextColor="@color/bottom_nav"
-        app:itemIconTint="@color/bottom_nav"/>
+        app:menu="@menu/bottom_adm" />
 
 
 

@@ -43,10 +43,13 @@ public class HomeFragmentADM extends Fragment {
     private Blog todosPosts;
     private LinearLayoutManager mLayoutManager;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_home_adm, container, false);
+
+
 
         // botao new post
         btnNovoPost = view.findViewById(R.id.btnNovoPost);
@@ -62,7 +65,7 @@ public class HomeFragmentADM extends Fragment {
         });
 
 
-        mRecyclerView = (RecyclerView)view.findViewById(R.id.recyclerViewBlog);
+        mRecyclerView = view.findViewById(R.id.recyclerViewBlog);
 
         carregarPosts();
 
@@ -77,6 +80,9 @@ public class HomeFragmentADM extends Fragment {
 
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
+        // Inverter Lista
+        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager.setReverseLayout(true);
 
         referenciaFirebase.child("post").orderByChild("keyPost").addValueEventListener(new ValueEventListener() {
             @Override
@@ -105,6 +111,7 @@ public class HomeFragmentADM extends Fragment {
         adapter = new BlogAdapter(blogs, getContext());
 
         mRecyclerView.setAdapter(adapter);
+
     }
 
 

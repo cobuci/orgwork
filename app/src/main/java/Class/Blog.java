@@ -10,6 +10,7 @@ public class Blog {
     private String image;
 
 
+
 public Blog(){
 
 

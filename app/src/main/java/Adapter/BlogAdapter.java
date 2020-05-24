@@ -1,12 +1,19 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -15,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orgwork.renewed.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,15 +49,18 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
     public BlogAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_blog, viewGroup, false);
 
+
         return new BlogAdapter.ViewHolder(itemView);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull BlogAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final BlogAdapter.ViewHolder holder, int position) {
 
 
 
         final Blog item = mBlogList.get(position);
+
 
         blogs = new ArrayList<>();
 
@@ -66,6 +77,12 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
 
                     blogs.add(todosPosts);
 
+                    DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+
+                    final int height = (displayMetrics.heightPixels) / 4 ;
+                    final int width = (displayMetrics.widthPixels) / 2 ;
+
+                    Picasso.get().load(todosPosts.getImage()).resize(width, height).centerCrop().into(holder.fotoPost);
 
 
                 }
@@ -77,6 +94,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
             }
         });
 
+
         holder.txtNome.setText(item.getNome());
         holder.txtDescricao.setText(item.getDescricao());
         holder.txtAutor.setText(item.getAutor());
@@ -84,6 +102,14 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
 
 
 
+        holder.fotoPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(item.getLink()));
+                context.startActivity(i);
+            }
+        });
 
     }
 
@@ -93,7 +119,9 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
         return mBlogList.size();
 
     }
-
+    public void ToastCurto(String a) {
+        Toast.makeText(context.getApplicationContext(), a, Toast.LENGTH_SHORT).show();
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -102,17 +130,26 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
         protected TextView txtDescricao;
         protected TextView txtAutor;
         protected TextView txtData;
+        protected ImageView fotoPost;
+        protected CardView linearLayout;
+        protected ConstraintLayout constraintLayout;
 
 
         public ViewHolder (View itemView){
             super(itemView);
 
-            txtNome = (TextView)itemView.findViewById(R.id.txt_Nome_Post);
-            txtDescricao = (TextView)itemView.findViewById(R.id.txt_Descricao_Post);
-            txtAutor = (TextView)itemView.findViewById(R.id.txAutor);
-            txtData = (TextView)itemView.findViewById(R.id.txData);
+            txtNome = itemView.findViewById(R.id.txt_Nome_Post);
+            txtDescricao = itemView.findViewById(R.id.txt_Descricao_Post);
+            txtAutor = itemView.findViewById(R.id.txAutor);
+            txtData = itemView.findViewById(R.id.txData);
+
+            fotoPost = itemView.findViewById(R.id.imagePost);
+            linearLayout = itemView.findViewById(R.id.cardViewLista);
+            constraintLayout = itemView.findViewById(R.id.layoutLista);
 
 
         }
     }
+
+
 }

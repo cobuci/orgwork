@@ -50,6 +50,7 @@ public class NewPostActivity extends AppCompatActivity {
         etLink = findViewById(R.id.etLink);
 
 
+
     }
 
 
@@ -58,6 +59,11 @@ public class NewPostActivity extends AppCompatActivity {
 
         String titulo1 = etTitulo.getText().toString();
         String descricao1 = etDescricao.getText().toString();
+        String link1 = etLink.getText().toString().toLowerCase();
+
+        if (!link1.startsWith("http://") && !link1.startsWith("https://")){
+            link1 = "http://" + link1;
+        }
 
         SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         Date data = new Date();
@@ -66,11 +72,12 @@ public class NewPostActivity extends AppCompatActivity {
 
         String dataFormatada = formataData.format(data);
 
-        criarPost(titulo1, descricao1, dataFormatada);
+        criarPost(titulo1, descricao1, dataFormatada, link1);
     }
 
 
-    public void criarPost(String titulo, String descricao, String data){
+
+    public void criarPost(String titulo, String descricao, String data, String link){
 
 
         String key = myRef.child("post").push().getKey();
@@ -80,9 +87,12 @@ public class NewPostActivity extends AppCompatActivity {
         blog.setDescricao(descricao);
         blog.setKeyPost(key);
         blog.setTimestamp(data);
+        blog.setLink(link);
 
         myRef.child("post").child(key).setValue(blog);
 
+
+        finish();
 
 
     }
