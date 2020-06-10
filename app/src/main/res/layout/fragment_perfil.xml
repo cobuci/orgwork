@@ -59,6 +59,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_MudarSenha" />
 
+
+    <Button
+        android:id="@+id/btn_Ajuda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
+        android:drawableStart="@drawable/ic_help"
+        android:drawablePadding="5dp"
+        android:text="precisa de ajuda?"
+        android:textAllCaps="false"
+        android:textColor="#85070707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ExcluirConta" />
+
     <Button
         android:id="@+id/btn_Sair"
         android:layout_width="wrap_content"
@@ -72,7 +89,7 @@
         android:textAllCaps="false"
         android:textColor="#85070707"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_ExcluirConta" />
+        app:layout_constraintTop_toBottomOf="@id/btn_Ajuda" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"

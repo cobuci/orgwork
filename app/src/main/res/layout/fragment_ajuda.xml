@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
+    android:layout_height="match_parent"
+    android:background="#E9EBEE">
+
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -23,12 +28,13 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="ADM"
+            android:text="Ajuda"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:typeface="normal" />
 
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -41,31 +47,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-        <Button
-            android:id="@+id/btnNovoPost"
-            android:layout_width="139dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:background="@drawable/button_login"
-            android:drawableStart="@drawable/ic_post_add"
-            android:drawableTint="#000000"
-            android:elevation="10dp"
-            android:padding="10dp"
-            android:text="Post"
-            android:textColor="#D3FFFFFF" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/recyclerViewBlog"
+            android:id="@+id/recyclerViewAjuda"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp" >
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="5dp" />
 
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

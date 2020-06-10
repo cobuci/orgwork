@@ -7,7 +7,7 @@ public class Blog {
     private String timestamp;
     private String descricao;
     private String autor;
-    private String image;
+    private String picture;
 
 
 
@@ -15,11 +15,15 @@ public Blog(){
 
 
 }
-   public Blog(String nome , String descricao, String timestamp){
+   public Blog(String nome , String descricao, String timestamp, String picture){
 
        this.nome = nome;
        this.descricao = descricao;
        this.timestamp = timestamp;
+       this.picture = picture;
+
+
+
 
    }
 
@@ -63,12 +67,12 @@ public Blog(){
         this.timestamp = timestamp;
     }
 
-    public String getImage() {
-        return image;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getLink() {

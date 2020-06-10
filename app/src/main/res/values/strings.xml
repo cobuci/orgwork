@@ -45,5 +45,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="tipo_solicitacao">
+        <item>Duvida</item>
+        <item>Sugestão</item>
+        <item>Reportar Bug</item>
+        <item>Outros</item>
+
+    </string-array>
 
 </resources>

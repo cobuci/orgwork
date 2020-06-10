@@ -82,7 +82,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
                     final int height = (displayMetrics.heightPixels) / 4 ;
                     final int width = (displayMetrics.widthPixels) / 2 ;
 
-                    Picasso.get().load(todosPosts.getImage()).resize(width, height).centerCrop().into(holder.fotoPost);
+                    Picasso.get().load(todosPosts.getPicture()).resize(width, height).centerCrop().into(holder.fotoPost);
 
 
                 }

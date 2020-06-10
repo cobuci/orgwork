@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateVisible|adjustResize">
-        <activity android:name="Activity.NewPostActivity"></activity>
+        <activity android:name="Activity.HelpDetailsActivity" />
+        <activity android:name="Activity.HelpActivity" />
         <activity android:name="Activity.ChangePasswordActivity" />
-        <activity android:name=".Activity" />
         <activity android:name="Activity.AdministratorActivity" />
         <activity android:name="Activity.SplashActivity">
             <intent-filter>

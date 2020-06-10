@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.orgwork.renewed.R;
 
 import Activity.ChangePasswordActivity;
+import Activity.HelpActivity;
 import Activity.SplashActivity;
 import Class.Conexao;
 import Class.Usuario;
@@ -36,13 +37,26 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     TextView email,name;
-    Button btn,btnPass, btnExclude;
+    Button btn,btnPass, btnExclude, btnAjuda;
     private DatabaseReference reference;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+
+
+        btnAjuda = view.findViewById(R.id.btn_Ajuda);
+
+        btnAjuda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), HelpActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            }
+        });
+
 
         btnExclude = view.findViewById(R.id.btn_ExcluirConta);
 
@@ -156,10 +170,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void verificaUser() {
-        if (user == null){
-
-
-        }else{
+        if (user != null){
             email = getView().findViewById(R.id.txt_email_perfil);
             name = getView().findViewById(R.id.txt_nome_perfil);
 
