@@ -24,12 +24,12 @@
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="400dp"
         android:contentDescription="logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_completo" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/txtTipoUsuario"

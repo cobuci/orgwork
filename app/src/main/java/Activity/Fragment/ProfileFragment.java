@@ -1,14 +1,19 @@
 package Activity.Fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,11 +45,16 @@ public class ProfileFragment extends Fragment {
     Button btn,btnPass, btnExclude, btnAjuda;
     private DatabaseReference reference;
 
+    TextView popupTexto1, popupTexto2;
+    Button popup_btnExcluir,popup_btnCancelar;
+    Dialog popExclude;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
+        iniPopup();
 
         btnAjuda = view.findViewById(R.id.btn_Ajuda);
 
@@ -63,7 +73,7 @@ public class ProfileFragment extends Fragment {
         btnExclude.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                excluirUsuario();
+              popExclude.show();
             }
         });
 
@@ -127,6 +137,7 @@ public class ProfileFragment extends Fragment {
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     final Usuario usuario = postSnapshot.getValue(Usuario.class);
+                   
 
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -142,6 +153,7 @@ public class ProfileFragment extends Fragment {
 
                                         reference = Conexao.getFirebase();
                                         reference.child("usuarios").child(usuario.getKeyUsuario()).removeValue();
+
 
                                         Conexao.logOut();
                                         getActivity().finish();
@@ -169,7 +181,39 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void verificaUser() {
+    private void iniPopup() {
+
+        popExclude = new Dialog(getContext());
+        popExclude.setContentView(R.layout.popup_exclude_account);
+        popExclude.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popExclude.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        popExclude.getWindow().getAttributes().gravity = Gravity.BOTTOM;
+
+        popupTexto1 = popExclude.findViewById(R.id.popup_excluirConta_Texto1);
+        popupTexto2 = popExclude.findViewById(R.id.popup_excluirConta_Texto2);
+        popup_btnExcluir = popExclude.findViewById(R.id.popup_btnExcluir);
+        popup_btnCancelar = popExclude.findViewById(R.id.popup_btnCancelar);
+
+        popup_btnExcluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                excluirUsuario();
+            }
+        });
+
+        popup_btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                popExclude.cancel();
+            }
+        });
+
+
+    }
+
+
+        private void verificaUser() {
         if (user != null){
             email = getView().findViewById(R.id.txt_email_perfil);
             name = getView().findViewById(R.id.txt_nome_perfil);

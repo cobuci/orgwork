@@ -36,14 +36,15 @@
         android:id="@+id/popup_img"
         android:layout_width="0dp"
         android:layout_height="225dp"
+        android:adjustViewBounds="false"
         android:background="#2d2d2d"
         android:clickable="true"
-        android:scaleType="centerCrop"
+        android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popup_Link"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        tools:srcCompat="@drawable/ic_photo" />
 
     <EditText
         android:id="@+id/popup_Link"
