@@ -45,6 +45,8 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
     Dialog popAcessarPost ;
     Button popupAcessar, popupCancelar;
 
+
+
     public BlogAdapter (List<Blog> l, Context c){
         context = c;
         mBlogList = l;
@@ -111,7 +113,24 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
         holder.txtAutor.setText(item.getAutor());
         holder.txtData.setText(item.getTimestamp());
 
+        holder.btnSharePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
 
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, item.getNome());
+
+                    String shareMessage= item.getNome() +"\n " +item.getLink();
+
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    context.startActivity(shareIntent);
+                } catch(Exception e) {
+                    //e.toString();
+                }
+            }
+        });
 
         holder.fotoPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +196,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
         protected ImageView fotoPost;
         protected CardView linearLayout;
         protected ConstraintLayout constraintLayout;
+        protected ImageView btnSharePost;
 
 
         public ViewHolder (View itemView){
@@ -186,6 +206,8 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
             txtDescricao = itemView.findViewById(R.id.txt_Descricao_Post);
             txtAutor = itemView.findViewById(R.id.txAutor);
             txtData = itemView.findViewById(R.id.txData);
+
+            btnSharePost = itemView.findViewById(R.id.btn_sharePost);
 
             fotoPost = itemView.findViewById(R.id.imagePost);
             linearLayout = itemView.findViewById(R.id.cardViewLista);
