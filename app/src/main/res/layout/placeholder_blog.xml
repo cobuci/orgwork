@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="368dp"
+    android:layout_height="300dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:background="#B3ACAC"
+            app:layout_constraintBottom_toBottomOf="@+id/dataholder"
+            app:layout_constraintEnd_toEndOf="@+id/dataholder"
+            app:layout_constraintStart_toStartOf="@+id/dataholder"
+            app:layout_constraintTop_toTopOf="@+id/dataholder" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:background="#B3ACAC"
+            app:layout_constraintBottom_toBottomOf="@+id/placeholderAutor"
+            app:layout_constraintEnd_toEndOf="@+id/placeholderAutor"
+            app:layout_constraintStart_toStartOf="@+id/placeholderAutor"
+            app:layout_constraintTop_toTopOf="@+id/placeholderAutor" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#B3ACAC"
+            app:layout_constraintBottom_toBottomOf="@+id/placeholderDescricao"
+            app:layout_constraintEnd_toEndOf="@+id/placeholderDescricao"
+            app:layout_constraintStart_toStartOf="@+id/placeholderDescricao"
+            app:layout_constraintTop_toTopOf="@+id/placeholderDescricao" />
+
+        <ImageView
+            android:id="@+id/btn_sharePost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/placeholderAutor"
+            app:layout_constraintEnd_toEndOf="@+id/dataholder"
+            app:srcCompat="@drawable/ic_share" />
+
+        <TextView
+            android:id="@+id/placeholderDescricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:text="                             "
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_Nome_Post" />
+
+        <TextView
+            android:id="@+id/txt_Nome_Post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Titulo"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imagePost" />
+
+        <TextView
+            android:id="@+id/placeholderAutor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="                     "
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/placeholderDescricao" />
+
+        <TextView
+            android:id="@+id/dataholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="                 "
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_Nome_Post"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_Nome_Post" />
+
+        <ImageView
+            android:id="@+id/imagePost"
+            android:layout_width="0dp"
+            android:layout_height="225dp"
+            android:background="#B3ACAC"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/placeholderTitulo"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:background="#B3ACAC"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_Nome_Post"
+            app:layout_constraintEnd_toEndOf="@+id/txt_Nome_Post"
+            app:layout_constraintStart_toStartOf="@+id/txt_Nome_Post"
+            app:layout_constraintTop_toTopOf="@+id/txt_Nome_Post" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

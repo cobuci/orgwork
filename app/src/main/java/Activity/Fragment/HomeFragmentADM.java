@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,7 +55,7 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragmentADM extends Fragment {
 
 
-
+    private ShimmerFrameLayout shimmerFrameLayout;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FloatingActionButton btnNovoPost;
@@ -82,6 +83,9 @@ public class HomeFragmentADM extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_adm, container, false);
 
 
+        shimmerFrameLayout = view.findViewById(R.id.layout_shimmer_homeAdm);
+        shimmerFrameLayout.startShimmer();
+
         // ini popup
         iniPopup();
         setupPopupImageClick();
@@ -104,10 +108,15 @@ public class HomeFragmentADM extends Fragment {
 
         mRecyclerView = view.findViewById(R.id.recyclerViewBlog);
 
+
+        mRecyclerView.setHasFixedSize(true);
+
         carregarPosts();
 
         return view;
     }
+
+
 
 
     private void setupPopupImageClick() {
@@ -300,6 +309,7 @@ public class HomeFragmentADM extends Fragment {
             mRecyclerView.setLayoutManager(mLayoutManager);
             blogs = new ArrayList<>();
 
+
             referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
             // Inverter Lista
@@ -317,8 +327,12 @@ public class HomeFragmentADM extends Fragment {
 
                         blogs.add(todosPosts);
 
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
 
                     }
+
 
                     adapter.notifyDataSetChanged();
                 }

@@ -203,9 +203,9 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
             super(itemView);
 
             txtNome = itemView.findViewById(R.id.txt_Nome_Post);
-            txtDescricao = itemView.findViewById(R.id.txt_Descricao_Post);
-            txtAutor = itemView.findViewById(R.id.txAutor);
-            txtData = itemView.findViewById(R.id.txData);
+            txtDescricao = itemView.findViewById(R.id.placeholderDescricao);
+            txtAutor = itemView.findViewById(R.id.placeholderAutor);
+            txtData = itemView.findViewById(R.id.dataholder);
 
             btnSharePost = itemView.findViewById(R.id.btn_sharePost);
 

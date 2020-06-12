@@ -42,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
         // Tempo do splash
-        int SPLASH_TIME_OUT = 1000;
+        int SPLASH_TIME_OUT = 400;
 
         tipoUsuario = findViewById(R.id.txtTipoUsuario);
         new Handler().postDelayed(new Runnable() {

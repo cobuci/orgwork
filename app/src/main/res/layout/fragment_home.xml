@@ -32,11 +32,35 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/layout_shimmer_homeAdm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <include
+                    layout="@layout/placeholder_blog"/>
+                <include
+                    layout="@layout/placeholder_blog"/>
+                <include
+                    layout="@layout/placeholder_blog"/>
+
+            </LinearLayout>
+
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewBlog"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:visibility="gone" />
 
 
 

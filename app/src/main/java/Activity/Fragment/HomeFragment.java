@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,8 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
 
+    private ShimmerFrameLayout shimmerFrameLayout;
+
     private RecyclerView mRecyclerView;
     private BlogAdapter adapter;
     private List<Blog> blogs;
@@ -48,6 +51,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
+        shimmerFrameLayout = view.findViewById(R.id.layout_shimmer_homeAdm);
+        shimmerFrameLayout.startShimmer();
 
 
 
@@ -83,6 +88,9 @@ public class HomeFragment extends Fragment {
 
                     blogs.add(todosPosts);
 
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.setVisibility(View.GONE);
 
                 }
 
