@@ -44,7 +44,7 @@ public class HelpActivity extends AppCompatActivity {
         myRef =  database.getReference();
         ajuda = new Ajuda();
         // spinner
-        Spinner spinner = (Spinner) findViewById(R.id.spinnerAjuda);
+        Spinner spinner = findViewById(R.id.spinnerAjuda);
 
 
 
@@ -74,7 +74,7 @@ public class HelpActivity extends AppCompatActivity {
         Date data = new Date();
 
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinnerAjuda);
+        Spinner spinner = findViewById(R.id.spinnerAjuda);
 
         String tipoSelecionado = spinner.getSelectedItem().toString();
 

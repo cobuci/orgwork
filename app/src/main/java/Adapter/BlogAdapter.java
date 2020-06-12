@@ -1,15 +1,20 @@
 package Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -37,18 +42,24 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
     private DatabaseReference referenciaFirebase;
     private List<Blog> blogs;
     private Blog todosPosts;
-
+    Dialog popAcessarPost ;
+    Button popupAcessar, popupCancelar;
 
     public BlogAdapter (List<Blog> l, Context c){
         context = c;
         mBlogList = l;
     }
 
-    @NonNull
+
+
+
+        @NonNull
     @Override
     public BlogAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_blog, viewGroup, false);
 
+            // ini popup
+            iniPopup();
 
         return new BlogAdapter.ViewHolder(itemView);
     }
@@ -105,9 +116,21 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
         holder.fotoPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(item.getLink()));
-                context.startActivity(i);
+
+                popAcessarPost.show();
+
+                popupAcessar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(item.getLink()));
+                        context.startActivity(i);
+
+                        popAcessarPost.cancel();
+
+                    }
+                });
+
             }
         });
 
@@ -119,8 +142,29 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
         return mBlogList.size();
 
     }
-    public void ToastCurto(String a) {
-        Toast.makeText(context.getApplicationContext(), a, Toast.LENGTH_SHORT).show();
+
+    private void iniPopup() {
+
+        popAcessarPost = new Dialog(context);
+        popAcessarPost.setContentView(R.layout.popup_acessar_post);
+        popAcessarPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popAcessarPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        popAcessarPost.getWindow().getAttributes().gravity = Gravity.CENTER_VERTICAL;
+
+
+        popupAcessar = popAcessarPost.findViewById(R.id.popup_acessar_btnAcessar);
+        popupCancelar = popAcessarPost.findViewById(R.id.popup_acessar_btnCancelar);
+
+        popupCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                popAcessarPost.cancel();
+            }
+        });
+
+
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
