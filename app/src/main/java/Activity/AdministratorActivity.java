@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.orgwork.renewed.R;
 
+import Activity.Fragment.AgendaFragment;
 import Activity.Fragment.AjudaFragment;
 import Activity.Fragment.HomeFragmentADM;
 import Activity.Fragment.ProfileFragment;
@@ -50,6 +51,9 @@ public class AdministratorActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_ajuda_adm:
                             selectedFragment = new AjudaFragment();
+                            break;
+                        case R.id.nav_agenda:
+                            selectedFragment = new AgendaFragment();
                             break;
                         case R.id.nav_perfil:
                             selectedFragment = new ProfileFragment();

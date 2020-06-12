@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Status bar Transparente
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
 
         //
         btn_login = findViewById(R.id.btn_login);
@@ -154,10 +154,6 @@ public class MainActivity extends AppCompatActivity {
         mBackPressed = System.currentTimeMillis();
     }
 
-    // Toast
-    public void ToastCurto(String a) {
-        Toast.makeText(getApplicationContext(), a, Toast.LENGTH_SHORT).show();
-    }
 
 
     // LOGIN com FIREBASE
@@ -170,13 +166,10 @@ public class MainActivity extends AppCompatActivity {
         String password = txtPassword.getText().toString().trim();
 
 
-
         final ProgressButton progressButton = new ProgressButton(MainActivity.this, LoginButton);
 
 
         Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
-
 
 
         if(email.isEmpty() || password.isEmpty()){

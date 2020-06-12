@@ -12,7 +12,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +57,7 @@ public class HomeFragmentADM extends Fragment {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
-    private Button btnNovoPost;
+    private FloatingActionButton btnNovoPost;
     private RecyclerView mRecyclerView;
     private BlogAdapter adapter;
     private List<Blog> blogs;
@@ -86,6 +86,9 @@ public class HomeFragmentADM extends Fragment {
         iniPopup();
         setupPopupImageClick();
 
+        int id = getResources().getIdentifier("com.orgwork.renewed:drawable/ic_photo", null, null);
+
+        popupPostImage.setImageResource(id);
 
         // botao new post
         btnNovoPost = view.findViewById(R.id.btnNovoPost);

@@ -10,8 +10,8 @@ android {
         applicationId "com.orgwork.renewed"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 7
+        versionName '0.7'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,8 +38,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     // picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
-    //imagem circular
-    implementation 'com.mikhaellopez:circularimageview:4.2.0'
+
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
     // Firebase
@@ -52,6 +51,7 @@ dependencies {
 
     // Add the Firebase SDK for Crashlytics.
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
-
     implementation 'androidx.cardview:cardview:1.0.0'
+
+
 }

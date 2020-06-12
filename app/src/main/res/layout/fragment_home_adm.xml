@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
-
-        <TextView
-            android:id="@+id/txtTituloInicio"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="ADM"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:typeface="normal" />
-
-    </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnNovoPost"
+            android:layout_width="38dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:src="@drawable/ic_post_add"
+            app:backgroundTint="#FFFFFF"
+            app:fabCustomSize="35dp"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:useCompatPadding="true" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -39,29 +39,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-        <Button
-            android:id="@+id/btnNovoPost"
-            android:layout_width="139dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:background="@drawable/button_login"
-            android:drawableStart="@drawable/ic_post_add"
-            android:drawableTint="#000000"
-            android:elevation="10dp"
-            android:padding="10dp"
-            android:text="Post"
-            android:textColor="#D3FFFFFF" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:clickable="true"
-            android:focusable="true"
             android:id="@+id/recyclerViewBlog"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp" >
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="5dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
