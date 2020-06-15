@@ -37,7 +37,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/agendaLinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="49dp"

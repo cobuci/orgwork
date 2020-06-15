@@ -8,7 +8,15 @@ public class Usuario {
     private String email,senha,nome;
     private String keyUsuario;
     private String tipoUsuario;
+    private String agendaUsuario;
 
+    public String getAgendaUsuario() {
+        return agendaUsuario;
+    }
+
+    public void setAgendaUsuario(String agendaUsuario) {
+        this.agendaUsuario = agendaUsuario;
+    }
 
     public String getEmail() {
         return email;

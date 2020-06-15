@@ -82,9 +82,6 @@ public class RecoveryActivity extends AppCompatActivity {
 
     }
 
-
-
-
     @Override
     protected void onStart() {
         super.onStart();

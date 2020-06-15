@@ -55,7 +55,7 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
 
 
 
-        @NonNull
+    @NonNull
     @Override
     public BlogAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_blog, viewGroup, false);

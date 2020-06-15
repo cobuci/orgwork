@@ -1,6 +1,7 @@
 package Class;
 
 public class Blog {
+
     private String keyPost;
     private String nome;
     private String link;

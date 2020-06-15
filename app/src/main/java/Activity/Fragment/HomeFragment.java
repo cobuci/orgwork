@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
         referenciaFirebase.child("post").orderByChild("nome").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                blogs.clear();
 
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){

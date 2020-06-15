@@ -138,8 +138,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     // Botão Voltar
-    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
-    private long mBackPressed;
+
     public void onBackPressed() {
 
             finish();

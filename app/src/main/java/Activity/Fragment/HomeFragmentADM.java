@@ -109,8 +109,6 @@ public class HomeFragmentADM extends Fragment {
         mRecyclerView = view.findViewById(R.id.recyclerViewBlog);
 
 
-        mRecyclerView.setHasFixedSize(true);
-
         carregarPosts();
 
         return view;
@@ -319,7 +317,7 @@ public class HomeFragmentADM extends Fragment {
             referenciaFirebase.child("post").orderByChild("keyPost").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                    blogs.clear();
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 

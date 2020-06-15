@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    app:cardElevation="5dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
+
+
+        <TextView
+            android:id="@+id/tvTituloAgenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Titulo"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/tvDescricaoAgenda"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDescricaoAgenda"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:text="TextView"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toTopOf="@+id/tvDataAgenda"
+            app:layout_constraintStart_toEndOf="@+id/ivStatusAgenda"
+            app:layout_constraintTop_toBottomOf="@+id/tvTituloAgenda"
+            tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," />
+
+        <TextView
+            android:id="@+id/tvDataAgenda"
+            android:layout_width="131dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="4dp"
+            android:drawableStart="@drawable/ic_calendario"
+            android:text="01/01/2020"
+            android:textAlignment="viewStart"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDescricaoAgenda"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescricaoAgenda" />
+
+        <ImageView
+            android:id="@+id/ivStatusAgenda"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:background="#7C7C7C"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivBtnShareAgenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTituloAgenda"
+            app:srcCompat="@drawable/ic_share" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

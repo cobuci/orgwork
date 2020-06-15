@@ -33,9 +33,11 @@ import Class.Usuario;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     private EditText txtUsername,txtPassword,txtEmail;
-    private FirebaseDatabase database;
+
     private DatabaseReference reference;
     private Usuario usuario;
     private FirebaseAuth auth;
@@ -46,6 +48,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference  =  firebaseDatabase.getReference();
+
 
         textInputLayoutUserCad = findViewById(R.id.textInputLayoutUserCad);
         textInputLayoutSenhaCad = findViewById(R.id.textInputLayoutSenhaCad);
@@ -108,7 +114,6 @@ public class RegisterActivity extends AppCompatActivity {
     public void alreadyAccount(View v){
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
         finish();
-
 
     }
 
@@ -239,8 +244,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-
-
     private void userProfile(){
         String username = txtUsername.getText().toString().trim();
         FirebaseUser user = auth.getCurrentUser();
@@ -258,6 +261,8 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                     });
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+
         }
 
     }

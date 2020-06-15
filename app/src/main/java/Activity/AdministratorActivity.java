@@ -64,7 +64,7 @@ public class AdministratorActivity extends AppCompatActivity {
 
                     return true;
                 }
-            };
+    };
 
     @Override
     public void onStart() {
