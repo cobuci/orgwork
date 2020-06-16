@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,33 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         holder.tvTituloAgenda.setText(mData.get(position).getNomeAtividade());
         holder.tvDescricaoAgenda.setText(mData.get(position).getTextoAtividade());
         holder.tvDataAgenda.setText(mData.get(position).getDataEntrega());
+
+        final String titulo = mData.get(position).getNomeAtividade();
+        final String descricao = mData.get(position).getTextoAtividade();
+        final String dataDeEntrega = mData.get(position).getDataEntrega();
+
+
+        holder.ivBtnShareAgenda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+
+
+                    String shareMessage = "\nTitulo: " + titulo +
+                            "\nDescrição: " + descricao +
+                            "\nData de entrega: " + dataDeEntrega;
+
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    mContext.startActivity(shareIntent);
+                } catch (Exception e) {
+                    //e.toString();
+                }
+
+            }
+        });
 
     }
 

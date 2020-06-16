@@ -10,8 +10,7 @@ android {
         applicationId 'com.orgwork.renewed'
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 7
-        versionName '0.71'
+        versionName '0.72'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
