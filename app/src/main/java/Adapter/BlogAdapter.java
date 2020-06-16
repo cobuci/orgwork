@@ -46,7 +46,6 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ViewHolder> {
     Button popupAcessar, popupCancelar;
 
 
-
     public BlogAdapter (List<Blog> l, Context c){
         context = c;
         mBlogList = l;

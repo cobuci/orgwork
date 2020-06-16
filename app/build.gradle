@@ -10,9 +10,10 @@ android {
         applicationId 'com.orgwork.renewed'
         minSdkVersion 23
         targetSdkVersion 29
-        versionName '0.72'
+        versionName '0.74'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionNameSuffix 'beta'
     }
 
     buildTypes {

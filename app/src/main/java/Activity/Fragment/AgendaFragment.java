@@ -252,6 +252,9 @@ public class AgendaFragment extends Fragment {
         databaseReference.child("Agenda").child(user.getUid()).child(key).setValue(agenda).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                etTituloAddAgenda.setText(null);
+                etDescricaoAgenda.setText(null);
+                etDataAgenda.setText(null);
                 popAddPost.dismiss();
             }
         });
