@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import com.orgwork.renewed.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import Adapter.AgendaAdapter;
 import Class.Agenda;
@@ -52,7 +54,6 @@ public class AgendaFragment extends Fragment {
     Calendar calendario;
     DatePickerDialog dpd;
 
-    String status;
 
     private Agenda todasAgendas;
 
@@ -115,16 +116,16 @@ public class AgendaFragment extends Fragment {
         agendas = new ArrayList<>();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
         uid = user.getUid();
 
 
-        databaseReference.child("Agenda").child(uid).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Agenda").child(uid).orderByChild("dataEntrega").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 agendas.clear();
 
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     todasAgendas = postSnapshot.getValue(Agenda.class);
 
                     agendas.add(todasAgendas);
@@ -159,9 +160,9 @@ public class AgendaFragment extends Fragment {
 
     private void iniPopup() {
 
-        popAddPost = new Dialog(getContext());
+        popAddPost = new Dialog(Objects.requireNonNull(getContext()));
         popAddPost.setContentView(R.layout.popup_add_agenda);
-        popAddPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(popAddPost.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
         popAddPost.getWindow().getAttributes().gravity = Gravity.BOTTOM;
 
@@ -178,17 +179,12 @@ public class AgendaFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(!etTituloAddAgenda.getText().toString().isEmpty() && !etDataAgenda.getText().toString().isEmpty() && !etDescricaoAgenda.getText().toString().isEmpty()){
+                if (!etTituloAddAgenda.getText().toString().isEmpty() && !etDataAgenda.getText().toString().isEmpty() && !etDescricaoAgenda.getText().toString().isEmpty()) {
 
+                    novaAgenda(etTituloAddAgenda.getText().toString(), etDescricaoAgenda.getText().toString(), etDataAgenda.getText().toString());
 
-                    novaAgenda(etTituloAddAgenda.getText().toString(),etDescricaoAgenda.getText().toString(),etDataAgenda.getText().toString());
-
-                }
-
-
-                else{
-
-
+                } else {
+                    ToastCurto("Todos os campos devem ser preenchidos !");
                 }
 
 
@@ -216,15 +212,17 @@ public class AgendaFragment extends Fragment {
 
                 calendario = Calendar.getInstance();
                 int day = calendario.get(Calendar.DAY_OF_MONTH);
-                final int month = calendario.get(Calendar.MONTH);
+                int month = calendario.get(Calendar.MONTH);
                 int year = calendario.get(Calendar.YEAR);
 
-                dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+
+                dpd = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int mYear, int mMonth, int mDay) {
-                        etDataAgenda.setText(mDay + "/"+ month +"/"+mYear);
+                        etDataAgenda.setText(mDay + "/" + (mMonth + 1) + "/" + mYear);
                     }
                 }, day, month, year);
+                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
                 dpd.show();
 
             }
@@ -234,8 +232,11 @@ public class AgendaFragment extends Fragment {
     }
 
 
+    public void ToastCurto(String a) {
+        Toast.makeText(getActivity(), a, Toast.LENGTH_SHORT).show();
+    }
 
-    public void novaAgenda(String titulo, String texto, String data){
+    public void novaAgenda(String titulo, String texto, String data) {
 
         String key = databaseReference.child("Agenda").child("key").push().getKey();
 
@@ -247,9 +248,7 @@ public class AgendaFragment extends Fragment {
         agenda.setAutorAtividade(user.getEmail());
 
 
-
-
-
+        assert key != null;
         databaseReference.child("Agenda").child(user.getUid()).child(key).setValue(agenda).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
