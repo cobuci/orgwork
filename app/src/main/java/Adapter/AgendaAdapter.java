@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.orgwork.renewed.R;
@@ -79,6 +80,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
     public class MyViewHolder extends  RecyclerView.ViewHolder{
 
+        protected ConstraintLayout layoutAgenda;
         TextView tvTituloAgenda,tvDescricaoAgenda,tvDataAgenda;
         ImageView ivBtnShareAgenda;
 
