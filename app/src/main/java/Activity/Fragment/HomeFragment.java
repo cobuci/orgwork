@@ -106,6 +106,11 @@ public class HomeFragment extends Fragment {
         adapter = new BlogAdapter(blogs, getContext());
 
         mRecyclerView.setAdapter(adapter);
+
+
+        mRecyclerView.setItemViewCacheSize(30);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 
 

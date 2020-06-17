@@ -2,12 +2,13 @@ package Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,9 @@ import Class.Conexao;
 
 public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHolder> {
 
+
+    private Agenda agenda;
+
     Context mContext;
     List<Agenda> mData;
     String uid;
@@ -40,17 +44,21 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         this.mData = mData;
     }
 
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View row = LayoutInflater.from(mContext).inflate(R.layout.list_agenda, parent,false);
+        View row = LayoutInflater.from(mContext).inflate(R.layout.list_agenda, parent, false);
 
         return new MyViewHolder(row);
+
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+
 
         holder.tvTituloAgenda.setText(mData.get(position).getNomeAtividade());
         holder.tvDescricaoAgenda.setText(mData.get(position).getTextoAtividade());
@@ -60,6 +68,32 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         final String descricao = mData.get(position).getTextoAtividade();
         final String dataDeEntrega = mData.get(position).getDataEntrega();
         final String idPostAgenda = mData.get(position).getAgendaKey();
+        final String statusAtividade = mData.get(position).getStatusAtividade();
+
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        uid = user.getUid();
+
+
+        holder.ivBtnAlarme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                reference = Conexao.getFirebase();
+
+                if (statusAtividade == "desativada") {
+
+                    reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
+
+                } else {
+                    reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
+
+                }
+
+
+            }
+        });
 
 
         holder.ivBtnShareAgenda.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +105,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
                     shareIntent.setType("text/plain");
 
 
-                    String shareMessage = "\nTitulo: " + titulo +
+                    String shareMessage = "Titulo: " + titulo +
                             "\nDescrição: " + descricao +
                             "\nData de entrega: " + dataDeEntrega;
 
@@ -84,44 +118,42 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             }
         });
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;
-        uid = user.getUid();
 
-
-        holder.layoutAgenda.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.ivBtnMenuAgenda.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            public void onClick(View v) {
 
-                builder.setTitle(titulo);
+                PopupMenu popupMenu = new PopupMenu(mContext, holder.ivBtnMenuAgenda);
 
+                popupMenu.inflate(R.menu.options_menu);
 
-                builder.setNegativeButton("Apagar", new DialogInterface.OnClickListener() {
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu1:
+                                reference = Conexao.getFirebase();
+                                reference.child("Agenda").child(uid).child(idPostAgenda).removeValue().equals(idPostAgenda);
+                                ToastCurto("A tarefa " + titulo + " foi excluida");
+                                break;
 
-
-                        reference = Conexao.getFirebase();
-                        reference.child("Agenda").child(uid).child(idPostAgenda).removeValue().equals(idPostAgenda);
-                        ToastCurto("A tarefa " + titulo + " foi excluida");
-
-
+                        }
+                        return false;
                     }
                 });
 
-                alerta = builder.create();
+                popupMenu.show();
 
-                alerta.show();
-
-                return false;
             }
         });
 
+
     }
+
 
     public void ToastCurto(String a) {
         Toast.makeText(mContext, a, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -133,7 +165,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
         protected ConstraintLayout layoutAgenda;
         TextView tvTituloAgenda, tvDescricaoAgenda, tvDataAgenda;
-        ImageView ivBtnShareAgenda;
+        ImageView ivBtnShareAgenda, ivBtnMenuAgenda, ivBtnAlarme;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -143,7 +175,8 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             tvDescricaoAgenda = itemView.findViewById(R.id.tvDescricaoAgenda);
             tvDataAgenda = itemView.findViewById(R.id.tvDataAgenda);
             ivBtnShareAgenda = itemView.findViewById(R.id.ivBtnShareAgenda);
-
+            ivBtnMenuAgenda = itemView.findViewById(R.id.ivBtnMenuAgenda);
+            ivBtnAlarme = itemView.findViewById(R.id.ivBtnAlarme);
 
 
         }

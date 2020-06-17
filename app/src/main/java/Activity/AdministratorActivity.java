@@ -7,8 +7,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.orgwork.renewed.R;
@@ -25,6 +27,8 @@ public class AdministratorActivity extends AppCompatActivity {
     private FirebaseUser user;
     private TextView textView;
 
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class AdministratorActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.menu_adm);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_adm,
                 new HomeFragmentADM()).commit();

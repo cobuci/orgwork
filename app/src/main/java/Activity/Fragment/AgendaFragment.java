@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -45,28 +46,27 @@ public class AgendaFragment extends Fragment {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
-    Dialog popAddPost ;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    ImageView ivBtnAlarme;
+    Dialog popAddPost;
     FloatingActionButton btnNovoPostAgenda;
     private LinearLayoutManager mLayoutManager;
-
-    Button btnCancelarPostAgenda , btnAddPostAgenda;
-    EditText etDataAgenda , etTituloAddAgenda, etDescricaoAgenda;
+    Button btnCancelarPostAgenda, btnAddPostAgenda;
+    EditText etDataAgenda, etTituloAddAgenda, etDescricaoAgenda;
     Calendar calendario;
     DatePickerDialog dpd;
 
 
+
     private Agenda todasAgendas;
-
-
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     RecyclerView recyclerView;
     AgendaAdapter agendaAdapter;
     List<Agenda> agendas;
 
+
     String uid;
     private Agenda agenda;
-
 
     @Nullable
     @Override
@@ -81,8 +81,7 @@ public class AgendaFragment extends Fragment {
         recyclerView = view.findViewById(R.id.agendaRV);
 
 
-
-
+        ivBtnAlarme = view.findViewById(R.id.ivBtnAlarme);
         carregarAgenda();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -142,9 +141,15 @@ public class AgendaFragment extends Fragment {
             }
         });
 
-        agendaAdapter = new AgendaAdapter(getActivity(),agendas);
+
+        agendaAdapter = new AgendaAdapter(getActivity(), agendas);
 
         recyclerView.setAdapter(agendaAdapter);
+
+        recyclerView.setItemViewCacheSize(30);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
 
     }
 
@@ -245,6 +250,7 @@ public class AgendaFragment extends Fragment {
         agenda.setNomeAtividade(titulo);
         agenda.setTextoAtividade(texto);
         agenda.setDataEntrega(data);
+        agenda.setStatusAtividade("desativada");
         agenda.setAutorAtividade(user.getEmail());
 
 

@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
                     android:backgroundTint="#00FFFFFF"
-                    android:drawableStart="@drawable/ic_help"
+                    android:drawableStart="@drawable/ic_help2"
                     android:drawablePadding="5dp"
                     android:text="precisa de ajuda?"
                     android:textAllCaps="false"
