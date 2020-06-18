@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.orgwork.renewed.R;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import Class.Agenda;
@@ -76,17 +78,30 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         uid = user.getUid();
 
 
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("d/M/uuuu");
+        LocalDate data = LocalDate.parse(dataDeEntrega, parser);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu");
+        final String dataFormatada = formatter.format(data);
+
+        final String mes = String.valueOf(data.getMonthValue());
+        final String dia = String.valueOf(data.getDayOfMonth());
+        final String ano = String.valueOf(data.getYear());
+
+
         holder.ivBtnAlarme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                ToastCurto(dia + "/" + mes + "/" + ano);
+
                 reference = Conexao.getFirebase();
 
-                if (statusAtividade == "desativada") {
+                if (statusAtividade.equals("desativada")) {
 
                     reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
 
-                } else {
+                } else if (statusAtividade.equals("ativada")) {
                     reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
 
                 }
@@ -130,13 +145,10 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu1:
-                                reference = Conexao.getFirebase();
-                                reference.child("Agenda").child(uid).child(idPostAgenda).removeValue().equals(idPostAgenda);
-                                ToastCurto("A tarefa " + titulo + " foi excluida");
-                                break;
-
+                        if (item.getItemId() == R.id.menu1) {
+                            reference = Conexao.getFirebase();
+                            reference.child("Agenda").child(uid).child(idPostAgenda).removeValue().equals(idPostAgenda);
+                            ToastCurto("A tarefa " + titulo + " foi excluida");
                         }
                         return false;
                     }
