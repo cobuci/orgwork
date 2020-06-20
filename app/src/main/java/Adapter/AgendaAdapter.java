@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +30,7 @@ import java.util.List;
 
 import Class.Agenda;
 import Class.Conexao;
+
 
 public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHolder> {
 
@@ -53,6 +57,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
         View row = LayoutInflater.from(mContext).inflate(R.layout.list_agenda, parent, false);
 
+
         return new MyViewHolder(row);
 
     }
@@ -66,12 +71,22 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         holder.tvDescricaoAgenda.setText(mData.get(position).getTextoAtividade());
         holder.tvDataAgenda.setText(mData.get(position).getDataEntrega());
 
+
         final String titulo = mData.get(position).getNomeAtividade();
         final String descricao = mData.get(position).getTextoAtividade();
         final String dataDeEntrega = mData.get(position).getDataEntrega();
         final String idPostAgenda = mData.get(position).getAgendaKey();
         final String statusAtividade = mData.get(position).getStatusAtividade();
 
+        if (statusAtividade.equals("desativada")) {
+
+            holder.checkAtividade.setChecked(true);
+            holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+
+        } else if (statusAtividade.equals("ativada")) {
+            holder.checkAtividade.setChecked(false);
+            holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
+        }
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
@@ -89,21 +104,57 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         final String ano = String.valueOf(data.getYear());
 
 
+        holder.checkAtividade.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                reference = Conexao.getFirebase();
+
+                if (!holder.checkAtividade.isChecked()) {
+
+                    if (statusAtividade.equals("desativada")) {
+
+                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
+                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+
+
+                    } else if (statusAtividade.equals("ativada")) {
+                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
+                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
+                        ToastCurto("A atividade " + titulo + " foi concluida !");
+                    }
+                } else {
+                    if (statusAtividade.equals("desativada")) {
+
+                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
+                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+
+
+                    } else if (statusAtividade.equals("ativada")) {
+                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
+                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
+                        ToastCurto("A atividade " + titulo + " foi concluida !");
+                    }
+                }
+            }
+        });
+
+
         holder.ivBtnAlarme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ToastCurto(dia + "/" + mes + "/" + ano);
 
                 reference = Conexao.getFirebase();
 
                 if (statusAtividade.equals("desativada")) {
 
                     reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
+                    holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+
 
                 } else if (statusAtividade.equals("ativada")) {
                     reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
-
+                    holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
                 }
 
 
@@ -163,6 +214,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     }
 
 
+
     public void ToastCurto(String a) {
         Toast.makeText(mContext, a, Toast.LENGTH_SHORT).show();
 
@@ -177,11 +229,14 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
         protected ConstraintLayout layoutAgenda;
         TextView tvTituloAgenda, tvDescricaoAgenda, tvDataAgenda;
+        CardView cardAgenda;
+        CheckBox checkAtividade;
         ImageView ivBtnShareAgenda, ivBtnMenuAgenda, ivBtnAlarme;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            cardAgenda = itemView.findViewById(R.id.cardAgenda);
             layoutAgenda = itemView.findViewById(R.id.layoutListaAgenda);
             tvTituloAgenda = itemView.findViewById(R.id.tvTituloAgenda);
             tvDescricaoAgenda = itemView.findViewById(R.id.tvDescricaoAgenda);
@@ -189,7 +244,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             ivBtnShareAgenda = itemView.findViewById(R.id.ivBtnShareAgenda);
             ivBtnMenuAgenda = itemView.findViewById(R.id.ivBtnMenuAgenda);
             ivBtnAlarme = itemView.findViewById(R.id.ivBtnAlarme);
-
+            checkAtividade = itemView.findViewById(R.id.checkAtividade);
 
         }
     }

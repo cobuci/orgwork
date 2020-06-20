@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#38B6FF</color>
     <color name="colorAccent">#38B6FF</color>
     <color name="Red">#9E0000</color>
+
+    <color name="Desativada">#C0F4BF</color>
+    <color name="Ativada">#FFFFFF</color>
+
 </resources>
