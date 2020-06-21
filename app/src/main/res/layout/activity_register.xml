@@ -45,7 +45,7 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmailCad" />
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSenhaCad" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutEmailCad"
@@ -56,7 +56,7 @@
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSenhaCad">
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUserCad">
 
                         <EditText
                             android:id="@+id/txtEmail"
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:clickable="true"
+                    android:clickable="false"
                     android:onClick="TextFieldClicked"
                     app:counterEnabled="false"
                     app:errorEnabled="true"
@@ -112,7 +112,7 @@
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUserCad"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmailCad"
                     app:passwordToggleEnabled="true">
 
 
@@ -132,21 +132,22 @@
 
 
                 </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:onClick="alreadyAccount"
-            android:text="@string/Text_Login_Activity_Register"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:onClick="alreadyAccount"
+                    android:text="@string/Text_Login_Activity_Register"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

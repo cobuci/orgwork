@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +31,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.orgwork.renewed.R;
 
-import Activity.ChangePasswordActivity;
 import Activity.HelpActivity;
 import Activity.SplashActivity;
 import Class.Conexao;
@@ -38,23 +39,26 @@ import Class.Usuario;
 
 public class ProfileFragment extends Fragment {
 
-    private Usuario usuario;
+
     private FirebaseAuth auth;
     private FirebaseUser user;
-    TextView email,name;
-    Button btn,btnPass, btnExclude, btnAjuda;
+    TextView email, name;
+    Button btn, btnPass, btnExclude, btnAjuda, btnChangePass, btnCancelPass;
     private DatabaseReference reference;
 
     TextView popupTexto1, popupTexto2;
-    Button popup_btnExcluir,popup_btnCancelar;
-    Dialog popExclude;
+    EditText senha1, senha2;
+    Button popup_btnExcluir, popup_btnCancelar;
+    Dialog popExclude, popChange;
+    TextInputLayout inputSenha, inputSenha2;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
         iniPopup();
+        iniPopupSenha();
 
         btnAjuda = view.findViewById(R.id.btn_Ajuda);
 
@@ -96,14 +100,12 @@ public class ProfileFragment extends Fragment {
         btnPass = view.findViewById(R.id.btn_MudarSenha);
 
         btnPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(v.getContext(), ChangePasswordActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            }
-        });
+                                       @Override
+                                       public void onClick(View v) {
+                                           popChange.show();
+                                       }
+                                   }
+        );
 
 
         return view;
@@ -181,6 +183,52 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    private void mudarSenha(String novaSenha, String novaSenha2) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        if (novaSenha.equals(novaSenha2) && !novaSenha.isEmpty() && !novaSenha2.isEmpty()) {
+
+            if (novaSenha.length() < 8 || novaSenha2.length() < 8) {
+
+                ToastCurto("A senha deve ter pelo menos 8 caracteres.");
+
+            } else {
+                if (user != null) {
+
+                    user.updatePassword(novaSenha)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        ToastCurto("Senha alterada com sucesso");
+                                        popChange.cancel();
+
+
+                                    } else {
+                                        ToastCurto("Ocorreu um erro.");
+
+
+                                    }
+                                }
+                            });
+                }
+
+            }
+
+
+        } else {
+
+            ToastCurto("As senhas não coincidem.");
+
+
+        }
+
+
+    }
+
+
     private void iniPopup() {
 
         popExclude = new Dialog(getContext());
@@ -213,8 +261,44 @@ public class ProfileFragment extends Fragment {
     }
 
 
-        private void verificaUser() {
-        if (user != null){
+    private void iniPopupSenha() {
+
+        popChange = new Dialog((getContext()));
+        popChange.setContentView(R.layout.popup_change_password);
+        popChange.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popChange.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        popChange.getWindow().getAttributes().gravity = Gravity.BOTTOM;
+
+        senha1 = popChange.findViewById(R.id.etMudarSenha1);
+
+        senha2 = popChange.findViewById(R.id.etMudarSenha2);
+
+        btnChangePass = popChange.findViewById(R.id.btnAlterarSenha);
+        btnCancelPass = popChange.findViewById(R.id.btnCancelarSenha);
+
+
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                mudarSenha(senha1.getText().toString(), senha2.getText().toString());
+
+
+            }
+        });
+
+        btnCancelPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popChange.cancel();
+            }
+        });
+    }
+
+
+    private void verificaUser() {
+        if (user != null) {
             email = getView().findViewById(R.id.txt_email_perfil);
             name = getView().findViewById(R.id.txt_nome_perfil);
 
