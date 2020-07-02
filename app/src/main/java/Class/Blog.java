@@ -16,10 +16,11 @@ public Blog(){
 
 
 }
-   public Blog(String nome , String descricao, String timestamp, String picture){
+   public Blog(String nome , String autor, String descricao, String timestamp, String picture){
 
        this.nome = nome;
        this.descricao = descricao;
+       this.autor = autor;
        this.timestamp = timestamp;
        this.picture = picture;
 

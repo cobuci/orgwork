@@ -169,11 +169,8 @@ public class MainActivity extends AppCompatActivity {
         final ProgressButton progressButton = new ProgressButton(MainActivity.this, LoginButton);
 
 
-        Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
-
         if(email.isEmpty() || password.isEmpty()){
-            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+
             if(email.isEmpty() && password.isEmpty()){
 
                 ILemailLogin.setError("Este campo não pode ficar em branco");

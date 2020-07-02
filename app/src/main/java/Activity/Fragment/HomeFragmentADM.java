@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +48,7 @@ import java.util.Date;
 import java.util.List;
 
 import Adapter.BlogAdapter;
+import Adapter.BlogAdapterADM;
 import Class.Blog;
 import Class.Conexao;
 
@@ -55,21 +57,22 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragmentADM extends Fragment {
 
 
-    private ShimmerFrameLayout shimmerFrameLayout;
+
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FloatingActionButton btnNovoPost;
     private RecyclerView mRecyclerView;
-    private BlogAdapter adapter;
+    private BlogAdapterADM adapter;
     private List<Blog> blogs;
     private DatabaseReference referenciaFirebase;
     private Blog todosPosts;
     private LinearLayoutManager mLayoutManager;
 
     Dialog popAddPost ;
-    ImageView popupPostImage,popupAddBtn;
-    TextView popupTitle,popupDescription,popupLink;
-    ProgressBar popupClickProgress;
+    ImageView popupPostImage;
+    Button popupAddBtn, popup_cancel;
+    TextView popupTitle,popupDescription,popupLink,popupAutor;
+
 
     private Uri pickedImgUri = null;
     static int PReqCode = 2;
@@ -83,8 +86,6 @@ public class HomeFragmentADM extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_adm, container, false);
 
 
-        shimmerFrameLayout = view.findViewById(R.id.layout_shimmer_homeAdm);
-        shimmerFrameLayout.startShimmer();
 
         // ini popup
         iniPopup();
@@ -182,87 +183,82 @@ public class HomeFragmentADM extends Fragment {
 
         popAddPost = new Dialog(getContext());
         popAddPost.setContentView(R.layout.popup_add_post);
-        popAddPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popAddPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT,Toolbar.LayoutParams.WRAP_CONTENT);
-        popAddPost.getWindow().getAttributes().gravity = Gravity.TOP;
+        popAddPost.getWindow().getAttributes().gravity = Gravity.BOTTOM;
 
         popupLink = popAddPost.findViewById(R.id.popup_Link);
         popupPostImage = popAddPost.findViewById(R.id.popup_img);
         popupTitle = popAddPost.findViewById(R.id.popup_title);
         popupDescription = popAddPost.findViewById(R.id.popup_description);
         popupAddBtn = popAddPost.findViewById(R.id.popup_add);
-        popupClickProgress = popAddPost.findViewById(R.id.popup_progressBar);
+        popupAutor = popAddPost.findViewById(R.id.popup_autor);
+
 
 
         popupAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                popupAddBtn.setVisibility(View.INVISIBLE);
-                popupClickProgress.setVisibility(View.VISIBLE);
 
-                if (!popupTitle.getText().toString().isEmpty()
-                        && !popupDescription.getText().toString().isEmpty()
-                        && pickedImgUri != null ) {
+                if (!popupTitle.getText().toString().isEmpty() && !popupDescription.getText().toString().isEmpty() && pickedImgUri != null && !popupAutor.getText().toString().isEmpty()) {
 
-                                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("blog_images");
-                                final StorageReference imageFilePath = storageReference.child(pickedImgUri.getLastPathSegment());
-                                imageFilePath.putFile(pickedImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("blog_images");
+                    final StorageReference imageFilePath = storageReference.child(pickedImgUri.getLastPathSegment());
+                    imageFilePath.putFile(pickedImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                                        imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri uri) {
-                                                String imageDownlaodLink = uri.toString();
+                            imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String imageDownlaodLink = uri.toString();
 
 
-                                                SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
-                                                Date data = new Date();
-                                                String dataFormatada = formataData.format(data);
+                                    SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+                                    Date data = new Date();
+                                    String dataFormatada = formataData.format(data);
 
-                                                Blog blog = new Blog(popupTitle.getText().toString(),
-                                                        popupDescription.getText().toString(),
-                                                        dataFormatada,
-                                                        imageDownlaodLink
-                                                        );
+                                    Blog blog = new Blog(popupTitle.getText().toString(),popupAutor.getText().toString(),
+                                            popupDescription.getText().toString(),
+                                            dataFormatada,
+                                            imageDownlaodLink
+                                            );
 
-                                                addPost(blog);
+                                    addPost(blog);
 
 
 
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-
-                                                popupClickProgress.setVisibility(View.INVISIBLE);
-                                                popupAddBtn.setVisibility(View.VISIBLE);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
 
 
 
-                                            }
-                                        });
 
 
-                                    }
-                                });
+                                }
+                            });
 
 
+                        }
+                    });
 
                 }
-                else {
-
-                    popupAddBtn.setVisibility(View.VISIBLE);
-                    popupClickProgress.setVisibility(View.INVISIBLE);
-
-                }
-
 
 
             }
         });
 
+        popup_cancel = popAddPost.findViewById(R.id.popup_cancel);
+
+        popup_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popAddPost.cancel();
+            }
+        });
 
 
     }
@@ -283,14 +279,13 @@ public class HomeFragmentADM extends Fragment {
         String key = myRef.getKey();
         blog.setKeyPost(key);
         blog.setLink(link);
-        blog.setAutor(user.getDisplayName());
+
 
 
         myRef.setValue(blog).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                popupClickProgress.setVisibility(View.INVISIBLE);
-                popupAddBtn.setVisibility(View.VISIBLE);
+
                 popAddPost.dismiss();
             }
         });
@@ -325,10 +320,6 @@ public class HomeFragmentADM extends Fragment {
 
                         blogs.add(todosPosts);
 
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        shimmerFrameLayout.stopShimmer();
-                        shimmerFrameLayout.setVisibility(View.GONE);
-
                     }
 
 
@@ -341,7 +332,7 @@ public class HomeFragmentADM extends Fragment {
                 }
             });
 
-        adapter = new BlogAdapter(blogs, getContext());
+        adapter = new BlogAdapterADM(blogs, getContext());
 
         mRecyclerView.setAdapter(adapter);
 

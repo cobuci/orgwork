@@ -1,18 +1,26 @@
 package Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -26,7 +34,9 @@ import com.orgwork.renewed.R;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import Class.Agenda;
 import Class.Conexao;
@@ -44,6 +54,10 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     private DatabaseReference reference;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    Dialog popAddPost;
+    Button btnCancelarPostAgenda, btnAddPostAgenda;
+    EditText etDataAgenda, etTituloAddAgenda, etDescricaoAgenda;
+    Calendar calendario;
 
     public AgendaAdapter(Context mContext, List<Agenda> mData) {
         this.mContext = mContext;
@@ -83,32 +97,33 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             holder.checkAtividade.setChecked(true);
             holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
 
-        } else if (statusAtividade.equals("ativada")) {
+        } else {
             holder.checkAtividade.setChecked(false);
             holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
         }
+
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
         uid = user.getUid();
 
 
-        DateTimeFormatter parser = DateTimeFormatter.ofPattern("d/M/uuuu");
-        LocalDate data = LocalDate.parse(dataDeEntrega, parser);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu");
-        final String dataFormatada = formatter.format(data);
-
-        final String mes = String.valueOf(data.getMonthValue());
-        final String dia = String.valueOf(data.getDayOfMonth());
-        final String ano = String.valueOf(data.getYear());
+//        DateTimeFormatter parser = DateTimeFormatter.ofPattern("d/M/uuuu");
+//        LocalDate data = LocalDate.parse(dataDeEntrega, parser);
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu");
+//        final String dataFormatada = formatter.format(data);
+//
+//        final String mes = String.valueOf(data.getMonthValue());
+//        final String dia = String.valueOf(data.getDayOfMonth());
+//        final String ano = String.valueOf(data.getYear());
 
 
         holder.checkAtividade.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                reference = Conexao.getFirebase();
+
 
                 if (!holder.checkAtividade.isChecked()) {
 
@@ -118,19 +133,18 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
                         holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
 
 
-                    } else if (statusAtividade.equals("ativada")) {
+                    } else {
                         reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
                         holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
                         ToastCurto("A atividade " + titulo + " foi concluida !");
                     }
-                } else {
+                } else{
                     if (statusAtividade.equals("desativada")) {
-
                         reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
                         holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
 
 
-                    } else if (statusAtividade.equals("ativada")) {
+                    } else {
                         reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
                         holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
                         ToastCurto("A atividade " + titulo + " foi concluida !");
@@ -140,74 +154,49 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         });
 
 
-        holder.ivBtnAlarme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                reference = Conexao.getFirebase();
+        holder.ivBtnShareAgenda.setOnClickListener(v -> {
 
-                if (statusAtividade.equals("desativada")) {
-
-                    reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
-                    holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+            try {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
 
 
-                } else if (statusAtividade.equals("ativada")) {
-                    reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
-                    holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
-                }
+                String shareMessage = "Titulo: " + titulo +
+                        "\nDescrição: " + descricao +
+                        "\nData de entrega: " + dataDeEntrega;
 
-
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                mContext.startActivity(shareIntent);
+            } catch (Exception e) {
+                //e.toString();
             }
+
         });
 
+        reference = Conexao.getFirebase();
+        holder.ivBtnMenuAgenda.setOnClickListener(v -> {
 
-        holder.ivBtnShareAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            PopupMenu popupMenu = new PopupMenu(mContext, holder.ivBtnMenuAgenda);
 
-                try {
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
+            popupMenu.inflate(R.menu.options_menu);
 
+            popupMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.menu1) {
 
-                    String shareMessage = "Titulo: " + titulo +
-                            "\nDescrição: " + descricao +
-                            "\nData de entrega: " + dataDeEntrega;
+                    reference.child("Agenda").child(uid).child(idPostAgenda).removeValue().equals(idPostAgenda);
+                    ToastCurto("A tarefa " + titulo + " foi excluida");
+                }else{
+                    iniPopup(titulo,dataDeEntrega,descricao,idPostAgenda);
 
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                    mContext.startActivity(shareIntent);
-                } catch (Exception e) {
-                    //e.toString();
+                    popAddPost.show();
+
                 }
+                return false;
+            });
 
-            }
-        });
+            popupMenu.show();
 
-
-        holder.ivBtnMenuAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                PopupMenu popupMenu = new PopupMenu(mContext, holder.ivBtnMenuAgenda);
-
-                popupMenu.inflate(R.menu.options_menu);
-
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.menu1) {
-                            reference = Conexao.getFirebase();
-                            reference.child("Agenda").child(uid).child(idPostAgenda).removeValue().equals(idPostAgenda);
-                            ToastCurto("A tarefa " + titulo + " foi excluida");
-                        }
-                        return false;
-                    }
-                });
-
-                popupMenu.show();
-
-            }
         });
 
 
@@ -219,6 +208,43 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         Toast.makeText(mContext, a, Toast.LENGTH_SHORT).show();
 
     }
+
+    @SuppressLint("SetTextI18n")
+    private void iniPopup(String titulo, String data, String descricao, final String idPostAgenda) {
+
+        popAddPost = new Dialog(Objects.requireNonNull(mContext));
+        popAddPost.setContentView(R.layout.popup_add_agenda);
+        Objects.requireNonNull(popAddPost.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        popAddPost.getWindow().getAttributes().gravity = Gravity.BOTTOM;
+
+
+        etTituloAddAgenda = popAddPost.findViewById(R.id.etTituloAddAgenda);
+        etDataAgenda = popAddPost.findViewById(R.id.etDataAgenda);
+        etDescricaoAgenda = popAddPost.findViewById(R.id.etDescricaoAgenda);
+        btnCancelarPostAgenda = popAddPost.findViewById(R.id.btnCancelarPostAgenda);
+        btnAddPostAgenda = popAddPost.findViewById(R.id.btnCriarPostAgenda);
+
+        btnAddPostAgenda.setText("Editar");
+
+        etTituloAddAgenda.setText(titulo);
+        etDataAgenda.setText(data);
+        etDescricaoAgenda.setText(descricao);
+
+        btnAddPostAgenda.setOnClickListener(v -> {
+
+            reference = Conexao.getFirebase();
+            reference.child("Agenda").child(uid).child(idPostAgenda).child("nomeAtividade").setValue(etTituloAddAgenda.getText().toString());
+            reference.child("Agenda").child(uid).child(idPostAgenda).child("textoAtividade").setValue(etDescricaoAgenda.getText().toString());
+            reference.child("Agenda").child(uid).child(idPostAgenda).child("dataEntrega").setValue(etDataAgenda.getText().toString());
+
+            popAddPost.cancel();
+        });
+
+
+    }
+
+
 
     @Override
     public int getItemCount() {

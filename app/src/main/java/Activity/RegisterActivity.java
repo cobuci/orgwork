@@ -3,8 +3,7 @@ package Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
+
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -121,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
     // CADASTRO
     public void cadastro(){
             // Vibração
-        Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
         escondeTeclado();
 
 
@@ -131,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         if(username.isEmpty() || password.isEmpty() || email.isEmpty()){
-                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+
                 if(username.isEmpty() && password.isEmpty() && email.isEmpty()){
                     // Error
 
