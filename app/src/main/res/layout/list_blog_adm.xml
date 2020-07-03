@@ -15,7 +15,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewLista"
         android:layout_width="368dp"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -35,60 +35,6 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/btn_sharePost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/placeholderAutor"
-                app:layout_constraintEnd_toStartOf="@+id/btnMenuPost"
-                app:srcCompat="@drawable/ic_share" />
-
-            <TextView
-                android:id="@+id/placeholderDescricao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="2dp"
-                android:text="Descrição"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Nome_Post" />
-
-            <TextView
-                android:id="@+id/txt_Nome_Post"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Titulo"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagePost" />
-
-            <TextView
-                android:id="@+id/placeholderAutor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Username"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/placeholderDescricao" />
-
-            <TextView
-                android:id="@+id/dataholder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="21-01-2000"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="@+id/txt_Nome_Post"
-                app:layout_constraintEnd_toEndOf="@+id/btnMenuPost"
-                app:layout_constraintTop_toTopOf="@+id/txt_Nome_Post"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
                 android:id="@+id/imagePost"
                 android:layout_width="0dp"
                 android:layout_height="225dp"
@@ -99,15 +45,77 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/btnMenuPost"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_sharePost"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_sharePost"
-                app:srcCompat="@drawable/ic_ponto_menu" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagePost">
+
+                <TextView
+                    android:id="@+id/placeholderDescricao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Descrição"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/placeholderAutor"
+                    app:layout_constraintStart_toStartOf="@+id/txt_Nome_Post"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_Nome_Post" />
+
+                <TextView
+                    android:id="@+id/txt_Nome_Post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Titulo"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnMenuPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_sharePost"
+                    app:layout_constraintEnd_toEndOf="@+id/dataholder"
+                    app:layout_constraintTop_toTopOf="@+id/btn_sharePost"
+                    app:srcCompat="@drawable/ic_ponto_menu" />
+
+                <TextView
+                    android:id="@+id/placeholderAutor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Username"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/placeholderDescricao" />
+
+                <ImageView
+                    android:id="@+id/btn_sharePost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/placeholderAutor"
+                    app:layout_constraintStart_toStartOf="@+id/dataholder"
+                    app:srcCompat="@drawable/ic_share" />
+
+                <TextView
+                    android:id="@+id/dataholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="21-01-2000"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toTopOf="@+id/placeholderDescricao"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txt_Nome_Post" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

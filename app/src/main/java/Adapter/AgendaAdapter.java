@@ -2,6 +2,7 @@ package Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -45,19 +47,18 @@ import Class.Conexao;
 public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHolder> {
 
 
-    private Agenda agenda;
-
     Context mContext;
     List<Agenda> mData;
     String uid;
-    private AlertDialog alerta;
+
     private DatabaseReference reference;
     private FirebaseAuth auth;
     private FirebaseUser user;
-    Dialog popAddPost;
+    Dialog popEditPost;
     Button btnCancelarPostAgenda, btnAddPostAgenda;
     EditText etDataAgenda, etTituloAddAgenda, etDescricaoAgenda;
     Calendar calendario;
+    DatePickerDialog dpd;
 
     public AgendaAdapter(Context mContext, List<Agenda> mData) {
         this.mContext = mContext;
@@ -107,23 +108,9 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         assert user != null;
         uid = user.getUid();
 
-
-//        DateTimeFormatter parser = DateTimeFormatter.ofPattern("d/M/uuuu");
-//        LocalDate data = LocalDate.parse(dataDeEntrega, parser);
-//
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu");
-//        final String dataFormatada = formatter.format(data);
-//
-//        final String mes = String.valueOf(data.getMonthValue());
-//        final String dia = String.valueOf(data.getDayOfMonth());
-//        final String ano = String.valueOf(data.getYear());
-
-
-        holder.checkAtividade.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.checkAtividade.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-
+            public void onClick(View view) {
 
                 if (!holder.checkAtividade.isChecked()) {
 
@@ -138,7 +125,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
                         holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
                         ToastCurto("A atividade " + titulo + " foi concluida !");
                     }
-                } else{
+                } else {
                     if (statusAtividade.equals("desativada")) {
                         reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
                         holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
@@ -153,6 +140,38 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             }
         });
 
+//        holder.checkAtividade.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//
+//                if (!holder.checkAtividade.isChecked()) {
+//
+//                    if (statusAtividade.equals("desativada")) {
+//
+//                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
+//                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+//
+//
+//                    } else {
+//                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
+//                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
+//                        ToastCurto("A atividade " + titulo + " foi concluida !");
+//                    }
+//                } else {
+//                    if (statusAtividade.equals("desativada")) {
+//                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
+//                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+//
+//
+//                    } else {
+//                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
+//                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
+//                        ToastCurto("A atividade " + titulo + " foi concluida !");
+//                    }
+//                }
+//            }
+//        });
 
 
         holder.ivBtnShareAgenda.setOnClickListener(v -> {
@@ -186,10 +205,10 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
                     reference.child("Agenda").child(uid).child(idPostAgenda).removeValue().equals(idPostAgenda);
                     ToastCurto("A tarefa " + titulo + " foi excluida");
-                }else{
-                    iniPopup(titulo,dataDeEntrega,descricao,idPostAgenda);
+                } else {
+                    iniPopup(titulo, dataDeEntrega, descricao, idPostAgenda);
 
-                    popAddPost.show();
+                    popEditPost.show();
 
                 }
                 return false;
@@ -203,27 +222,29 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     }
 
 
-
     public void ToastCurto(String a) {
         Toast.makeText(mContext, a, Toast.LENGTH_SHORT).show();
 
     }
 
-    @SuppressLint("SetTextI18n")
+
     private void iniPopup(String titulo, String data, String descricao, final String idPostAgenda) {
 
-        popAddPost = new Dialog(Objects.requireNonNull(mContext));
-        popAddPost.setContentView(R.layout.popup_add_agenda);
-        Objects.requireNonNull(popAddPost.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
-        popAddPost.getWindow().getAttributes().gravity = Gravity.BOTTOM;
+        popEditPost = new Dialog(Objects.requireNonNull(mContext));
+        popEditPost.setContentView(R.layout.popup_add_agenda);
+        Objects.requireNonNull(popEditPost.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popEditPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        popEditPost.getWindow().getAttributes().gravity = Gravity.BOTTOM;
 
 
-        etTituloAddAgenda = popAddPost.findViewById(R.id.etTituloAddAgenda);
-        etDataAgenda = popAddPost.findViewById(R.id.etDataAgenda);
-        etDescricaoAgenda = popAddPost.findViewById(R.id.etDescricaoAgenda);
-        btnCancelarPostAgenda = popAddPost.findViewById(R.id.btnCancelarPostAgenda);
-        btnAddPostAgenda = popAddPost.findViewById(R.id.btnCriarPostAgenda);
+        // EDIT TEXT
+        etTituloAddAgenda = popEditPost.findViewById(R.id.etTituloAddAgenda);
+        etDataAgenda = popEditPost.findViewById(R.id.etDataAgenda);
+        etDescricaoAgenda = popEditPost.findViewById(R.id.etDescricaoAgenda);
+
+        //BOTÂO
+        btnCancelarPostAgenda = popEditPost.findViewById(R.id.btnCancelarPostAgenda);
+        btnAddPostAgenda = popEditPost.findViewById(R.id.btnCriarPostAgenda);
 
         btnAddPostAgenda.setText("Editar");
 
@@ -231,19 +252,53 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         etDataAgenda.setText(data);
         etDescricaoAgenda.setText(descricao);
 
-        btnAddPostAgenda.setOnClickListener(v -> {
 
-            reference = Conexao.getFirebase();
-            reference.child("Agenda").child(uid).child(idPostAgenda).child("nomeAtividade").setValue(etTituloAddAgenda.getText().toString());
-            reference.child("Agenda").child(uid).child(idPostAgenda).child("textoAtividade").setValue(etDescricaoAgenda.getText().toString());
-            reference.child("Agenda").child(uid).child(idPostAgenda).child("dataEntrega").setValue(etDataAgenda.getText().toString());
+        etDataAgenda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            popAddPost.cancel();
+                calendario = Calendar.getInstance();
+                int day = calendario.get(Calendar.DAY_OF_MONTH);
+                int month = calendario.get(Calendar.MONTH);
+                int year = calendario.get(Calendar.YEAR);
+
+
+                dpd = new DatePickerDialog(Objects.requireNonNull(mContext), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int mYear, int mMonth, int mDay) {
+                        etDataAgenda.setText(mDay + "/" + (mMonth + 1) + "/" + mYear);
+                    }
+                }, day, month, year);
+                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+                dpd.show();
+
+            }
         });
 
+        btnAddPostAgenda.setOnClickListener(v -> {
+
+            editarAgenda(idPostAgenda, etTituloAddAgenda.getText().toString(), etDescricaoAgenda.getText().toString(), etDataAgenda.getText().toString());
+
+        });
+
+        btnCancelarPostAgenda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popEditPost.cancel();
+            }
+        });
 
     }
 
+
+    private void editarAgenda(String idPostAgenda, String titulo, String texto, String data) {
+        reference = Conexao.getFirebase();
+        reference.child("Agenda").child(uid).child(idPostAgenda).child("nomeAtividade").setValue(titulo);
+        reference.child("Agenda").child(uid).child(idPostAgenda).child("textoAtividade").setValue(texto);
+        reference.child("Agenda").child(uid).child(idPostAgenda).child("dataEntrega").setValue(data);
+        popEditPost.cancel();
+
+    }
 
 
     @Override

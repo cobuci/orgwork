@@ -91,12 +91,7 @@ public class AgendaFragment extends Fragment {
 
 
 
-        btnNovoPostAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popAddPost.show();
-            }
-        });
+        btnNovoPostAgenda.setOnClickListener(v -> popAddPost.show());
 
 
 
@@ -180,57 +175,42 @@ public class AgendaFragment extends Fragment {
         btnAddPostAgenda = popAddPost.findViewById(R.id.btnCriarPostAgenda);
 
 
-        btnAddPostAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnAddPostAgenda.setOnClickListener(v -> {
 
-                if (!etTituloAddAgenda.getText().toString().isEmpty() && !etDataAgenda.getText().toString().isEmpty() && !etDescricaoAgenda.getText().toString().isEmpty()) {
+            if (!etTituloAddAgenda.getText().toString().isEmpty() && !etDataAgenda.getText().toString().isEmpty() && !etDescricaoAgenda.getText().toString().isEmpty()) {
 
-                    novaAgenda(etTituloAddAgenda.getText().toString(), etDescricaoAgenda.getText().toString(), etDataAgenda.getText().toString());
+                novaAgenda(etTituloAddAgenda.getText().toString(), etDescricaoAgenda.getText().toString(), etDataAgenda.getText().toString());
 
-                } else {
-                    ToastCurto("Todos os campos devem ser preenchidos !");
+            } else {
+                ToastCurto("Todos os campos devem ser preenchidos !");
+            }
+
+
+
+        });
+
+
+
+
+        btnCancelarPostAgenda.setOnClickListener(v -> popAddPost.cancel());
+
+        etDataAgenda.setOnClickListener(v -> {
+
+            calendario = Calendar.getInstance();
+            int day = calendario.get(Calendar.DAY_OF_MONTH);
+            int month = calendario.get(Calendar.MONTH);
+            int year = calendario.get(Calendar.YEAR);
+
+
+            dpd = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int mYear, int mMonth, int mDay) {
+                    etDataAgenda.setText(mDay + "/" + (mMonth + 1) + "/" + mYear);
                 }
+            }, day, month, year);
+            dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+            dpd.show();
 
-
-
-            }
-
-
-        });
-
-
-
-
-        btnCancelarPostAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popAddPost.cancel();
-
-
-            }
-        });
-
-        etDataAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                calendario = Calendar.getInstance();
-                int day = calendario.get(Calendar.DAY_OF_MONTH);
-                int month = calendario.get(Calendar.MONTH);
-                int year = calendario.get(Calendar.YEAR);
-
-
-                dpd = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int mYear, int mMonth, int mDay) {
-                        etDataAgenda.setText(mDay + "/" + (mMonth + 1) + "/" + mYear);
-                    }
-                }, day, month, year);
-                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
-                dpd.show();
-
-            }
         });
 
 
@@ -250,7 +230,7 @@ public class AgendaFragment extends Fragment {
         agenda.setNomeAtividade(titulo);
         agenda.setTextoAtividade(texto);
         agenda.setDataEntrega(data);
-        agenda.setStatusAtividade("desativada");
+        agenda.setStatusAtividade("ativada");
         agenda.setAutorAtividade(user.getEmail());
 
 

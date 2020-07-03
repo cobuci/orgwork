@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
 
-    private ShimmerFrameLayout shimmerFrameLayout;
+
 
     private RecyclerView mRecyclerView;
     private BlogAdapter adapter;
@@ -49,11 +49,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-
-        shimmerFrameLayout = view.findViewById(R.id.layout_shimmer_homeAdm);
-        shimmerFrameLayout.startShimmer();
-
 
 
         // Lista
@@ -76,7 +71,7 @@ public class HomeFragment extends Fragment {
         mLayoutManager.setStackFromEnd(true);
         mLayoutManager.setReverseLayout(true);
 
-        referenciaFirebase.child("post").orderByChild("nome").addValueEventListener(new ValueEventListener() {
+        referenciaFirebase.child("post").orderByChild("keyPost").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 blogs.clear();
@@ -88,9 +83,6 @@ public class HomeFragment extends Fragment {
 
                     blogs.add(todosPosts);
 
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
 
                 }
 
