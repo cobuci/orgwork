@@ -57,7 +57,6 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragmentADM extends Fragment {
 
 
-
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FloatingActionButton btnNovoPost;
@@ -68,10 +67,10 @@ public class HomeFragmentADM extends Fragment {
     private Blog todosPosts;
     private LinearLayoutManager mLayoutManager;
 
-    Dialog popAddPost ;
+    Dialog popAddPost;
     ImageView popupPostImage;
     Button popupAddBtn, popup_cancel;
-    TextView popupTitle,popupDescription,popupLink,popupAutor;
+    TextView popupTitle, popupDescription, popupLink, popupAutor;
 
 
     private Uri pickedImgUri = null;
@@ -79,12 +78,10 @@ public class HomeFragmentADM extends Fragment {
     static int REQUESCODE = 2;
 
 
-
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_adm, container, false);
-
 
 
         // ini popup
@@ -116,8 +113,6 @@ public class HomeFragmentADM extends Fragment {
     }
 
 
-
-
     private void setupPopupImageClick() {
 
 
@@ -133,18 +128,17 @@ public class HomeFragmentADM extends Fragment {
         });
 
 
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == REQUESCODE && data != null ) {
+        if (resultCode == RESULT_OK && requestCode == REQUESCODE && data != null) {
 
             // the user has successfully picked an image
             // we need to save its reference to a Uri variable
-            pickedImgUri = data.getData() ;
+            pickedImgUri = data.getData();
             popupPostImage.setImageURI(pickedImgUri);
 
         }
@@ -153,38 +147,37 @@ public class HomeFragmentADM extends Fragment {
     }
 
 
-
     private void openGallery() {
 
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,REQUESCODE);
+        startActivityForResult(galleryIntent, REQUESCODE);
 
     }
 
 
-    private void checkAndRequestForPermission(){
+    private void checkAndRequestForPermission() {
 
-        if(ContextCompat.checkSelfPermission( getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
-            }else {
-                ActivityCompat.requestPermissions( getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         PReqCode);
             }
-        }else{
+        } else {
             openGallery();
         }
 
     }
 
-    private void iniPopup(){
+    private void iniPopup() {
 
         popAddPost = new Dialog(getContext());
         popAddPost.setContentView(R.layout.popup_add_post);
         popAddPost.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT,Toolbar.LayoutParams.WRAP_CONTENT);
+        popAddPost.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
         popAddPost.getWindow().getAttributes().gravity = Gravity.BOTTOM;
 
         popupLink = popAddPost.findViewById(R.id.popup_Link);
@@ -193,7 +186,6 @@ public class HomeFragmentADM extends Fragment {
         popupDescription = popAddPost.findViewById(R.id.popup_description);
         popupAddBtn = popAddPost.findViewById(R.id.popup_add);
         popupAutor = popAddPost.findViewById(R.id.popup_autor);
-
 
 
         popupAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -219,23 +211,19 @@ public class HomeFragmentADM extends Fragment {
                                     Date data = new Date();
                                     String dataFormatada = formataData.format(data);
 
-                                    Blog blog = new Blog(popupTitle.getText().toString(),popupAutor.getText().toString(),
+                                    Blog blog = new Blog(popupTitle.getText().toString(), popupAutor.getText().toString(),
                                             popupDescription.getText().toString(),
                                             dataFormatada,
                                             imageDownlaodLink
-                                            );
+                                    );
 
                                     addPost(blog);
-
 
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-
-
-
 
 
                                 }
@@ -271,7 +259,7 @@ public class HomeFragmentADM extends Fragment {
 
         String link = popupLink.getText().toString().toLowerCase();
 
-        if (!link.startsWith("http://") && !link.startsWith("https://")){
+        if (!link.startsWith("http://") && !link.startsWith("https://")) {
             link = "http://" + link;
         }
 
@@ -279,7 +267,6 @@ public class HomeFragmentADM extends Fragment {
         String key = myRef.getKey();
         blog.setKeyPost(key);
         blog.setLink(link);
-
 
 
         myRef.setValue(blog).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -291,46 +278,43 @@ public class HomeFragmentADM extends Fragment {
         });
 
 
-
-
-
     }
 
     private void carregarPosts() {
-            mRecyclerView.setHasFixedSize(true);
-            mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            blogs = new ArrayList<>();
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        blogs = new ArrayList<>();
 
 
-            referenciaFirebase = FirebaseDatabase.getInstance().getReference();
+        referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
-            // Inverter Lista
-            mLayoutManager.setStackFromEnd(true);
-            mLayoutManager.setReverseLayout(true);
+        // Inverter Lista
+        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager.setReverseLayout(true);
 
-            referenciaFirebase.child("post").orderByChild("keyPost").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    blogs.clear();
+        referenciaFirebase.child("post").orderByChild("keyPost").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                blogs.clear();
 
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                        todosPosts = postSnapshot.getValue(Blog.class);
+                    todosPosts = postSnapshot.getValue(Blog.class);
 
-                        blogs.add(todosPosts);
-
-                    }
-
-
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    blogs.add(todosPosts);
 
                 }
-            });
+
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         adapter = new BlogAdapterADM(blogs, getContext());
 
@@ -343,13 +327,13 @@ public class HomeFragmentADM extends Fragment {
     }
 
 
-        @Override
-        public void onStart() {
-            super.onStart();
-            auth = Conexao.getFirebaseAuth();
-            user = Conexao.getFirebaseUser();
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth = Conexao.getFirebaseAuth();
+        user = Conexao.getFirebaseUser();
 
-        }
     }
+}
 
 

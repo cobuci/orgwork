@@ -54,11 +54,11 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     private DatabaseReference reference;
     private FirebaseAuth auth;
     private FirebaseUser user;
-    Dialog popEditPost;
-    Button btnCancelarPostAgenda, btnAddPostAgenda;
-    EditText etDataAgenda, etTituloAddAgenda, etDescricaoAgenda;
-    Calendar calendario;
-    DatePickerDialog dpd;
+    private Dialog popEditPost;
+    private Button btnCancelarPostAgenda, btnAddPostAgenda;
+    private EditText etDataAgenda, etTituloAddAgenda, etDescricaoAgenda;
+    private Calendar calendario;
+    private DatePickerDialog dpd;
 
     public AgendaAdapter(Context mContext, List<Agenda> mData) {
         this.mContext = mContext;
@@ -69,12 +69,8 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View row = LayoutInflater.from(mContext).inflate(R.layout.list_agenda, parent, false);
-
-
         return new MyViewHolder(row);
-
     }
 
 
@@ -94,7 +90,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         final String statusAtividade = mData.get(position).getStatusAtividade();
 
         if (statusAtividade.equals("desativada")) {
-
             holder.checkAtividade.setChecked(true);
             holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
 
@@ -108,70 +103,33 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         assert user != null;
         uid = user.getUid();
 
-        holder.checkAtividade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.checkAtividade.setOnClickListener(view -> {
 
-                if (!holder.checkAtividade.isChecked()) {
+            if (!holder.checkAtividade.isChecked()) {
 
-                    if (statusAtividade.equals("desativada")) {
+                if (statusAtividade.equals("desativada")) {
 
-                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
-                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+                    reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
+                    holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
 
 
-                    } else {
-                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
-                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
-                        ToastCurto("A atividade " + titulo + " foi concluida !");
-                    }
                 } else {
-                    if (statusAtividade.equals("desativada")) {
-                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
-                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
+                    reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
+                    holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
+                    ToastCurto("A atividade " + titulo + " foi concluida !");
+                }
+            } else {
+                if (statusAtividade.equals("desativada")) {
+                    reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
+                    holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
 
-
-                    } else {
-                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
-                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
-                        ToastCurto("A atividade " + titulo + " foi concluida !");
-                    }
+                } else {
+                    reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
+                    holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
+                    ToastCurto("A atividade " + titulo + " foi concluida !");
                 }
             }
         });
-
-//        holder.checkAtividade.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//
-//
-//                if (!holder.checkAtividade.isChecked()) {
-//
-//                    if (statusAtividade.equals("desativada")) {
-//
-//                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
-//                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
-//
-//
-//                    } else {
-//                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
-//                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
-//                        ToastCurto("A atividade " + titulo + " foi concluida !");
-//                    }
-//                } else {
-//                    if (statusAtividade.equals("desativada")) {
-//                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("ativada");
-//                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Desativada));
-//
-//
-//                    } else {
-//                        reference.child("Agenda").child(uid).child(idPostAgenda).child("statusAtividade").setValue("desativada");
-//                        holder.cardAgenda.setBackgroundTintList(mContext.getResources().getColorStateList(R.color.Ativada));
-//                        ToastCurto("A atividade " + titulo + " foi concluida !");
-//                    }
-//                }
-//            }
-//        });
 
 
         holder.ivBtnShareAgenda.setOnClickListener(v -> {
@@ -179,8 +137,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             try {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
-
-
                 String shareMessage = "Titulo: " + titulo +
                         "\nDescrição: " + descricao +
                         "\nData de entrega: " + dataDeEntrega;
@@ -207,7 +163,6 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
                     ToastCurto("A tarefa " + titulo + " foi excluida");
                 } else {
                     iniPopup(titulo, dataDeEntrega, descricao, idPostAgenda);
-
                     popEditPost.show();
 
                 }
@@ -217,14 +172,11 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
             popupMenu.show();
 
         });
-
-
     }
 
 
     public void ToastCurto(String a) {
         Toast.makeText(mContext, a, Toast.LENGTH_SHORT).show();
-
     }
 
 
@@ -253,26 +205,18 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
         etDescricaoAgenda.setText(descricao);
 
 
-        etDataAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        etDataAgenda.setOnClickListener(v -> {
 
-                calendario = Calendar.getInstance();
-                int day = calendario.get(Calendar.DAY_OF_MONTH);
-                int month = calendario.get(Calendar.MONTH);
-                int year = calendario.get(Calendar.YEAR);
+            calendario = Calendar.getInstance();
+            int day = calendario.get(Calendar.DAY_OF_MONTH);
+            int month = calendario.get(Calendar.MONTH);
+            int year = calendario.get(Calendar.YEAR);
 
 
-                dpd = new DatePickerDialog(Objects.requireNonNull(mContext), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int mYear, int mMonth, int mDay) {
-                        etDataAgenda.setText(mDay + "/" + (mMonth + 1) + "/" + mYear);
-                    }
-                }, day, month, year);
-                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
-                dpd.show();
+            dpd = new DatePickerDialog(Objects.requireNonNull(mContext), (view, mYear, mMonth, mDay) -> etDataAgenda.setText(mDay + "/" + (mMonth + 1) + "/" + mYear), day, month, year);
+            dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+            dpd.show();
 
-            }
         });
 
         btnAddPostAgenda.setOnClickListener(v -> {
@@ -281,12 +225,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.MyViewHold
 
         });
 
-        btnCancelarPostAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popEditPost.cancel();
-            }
-        });
+        btnCancelarPostAgenda.setOnClickListener(view -> popEditPost.cancel());
 
     }
 

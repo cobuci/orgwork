@@ -33,7 +33,6 @@ public class AjudaFragment extends Fragment {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
-    private Button btnNovoPost;
     private RecyclerView mRecyclerView;
     private AjudaAdapter adapter;
     private List<Ajuda> ajudas;
@@ -43,9 +42,8 @@ public class AjudaFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ajuda, container, false);
-
 
 
         mRecyclerView = view.findViewById(R.id.recyclerViewAjuda);
@@ -58,7 +56,7 @@ public class AjudaFragment extends Fragment {
 
     private void carregarAjuda() {
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         ajudas = new ArrayList<>();
 
@@ -73,8 +71,7 @@ public class AjudaFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     todasAjudas = postSnapshot.getValue(Ajuda.class);
 

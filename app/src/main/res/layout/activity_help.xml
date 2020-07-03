@@ -36,9 +36,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        app:cardElevation="15dp"
+        android:background="@drawable/background_login"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +47,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/background_login">
 
             <EditText
                 android:id="@+id/etMensagemAjuda"
@@ -107,7 +109,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
+                android:background="@drawable/button_popup"
                 android:text="Enviar"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -120,8 +124,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/background_login"
+        android:paddingLeft="32dp"
+        android:paddingTop="15dp"
         android:text="Caso tenha alguma duvida, ou sugestão ,utilize o formulário abaixo para nos enviar sua mensagem."
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

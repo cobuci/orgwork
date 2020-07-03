@@ -58,7 +58,6 @@ public class AgendaFragment extends Fragment {
     DatePickerDialog dpd;
 
 
-
     private Agenda todasAgendas;
     RecyclerView recyclerView;
     AgendaAdapter agendaAdapter;
@@ -70,7 +69,7 @@ public class AgendaFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_agenda, container, false);
 
 
@@ -85,23 +84,21 @@ public class AgendaFragment extends Fragment {
         carregarAgenda();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        databaseReference  =  firebaseDatabase.getReference();
+        databaseReference = firebaseDatabase.getReference();
 
         btnNovoPostAgenda = view.findViewById(R.id.fabAddPost);
 
 
-
         btnNovoPostAgenda.setOnClickListener(v -> popAddPost.show());
-
 
 
         return view;
     }
 
 
-    public void carregarAgenda(){
+    public void carregarAgenda() {
 
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setHasFixedSize(true);
 
@@ -186,10 +183,7 @@ public class AgendaFragment extends Fragment {
             }
 
 
-
         });
-
-
 
 
         btnCancelarPostAgenda.setOnClickListener(v -> popAddPost.cancel());
@@ -235,14 +229,11 @@ public class AgendaFragment extends Fragment {
 
 
         assert key != null;
-        databaseReference.child("Agenda").child(user.getUid()).child(key).setValue(agenda).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                etTituloAddAgenda.setText(null);
-                etDescricaoAgenda.setText(null);
-                etDataAgenda.setText(null);
-                popAddPost.dismiss();
-            }
+        databaseReference.child("Agenda").child(user.getUid()).child(key).setValue(agenda).addOnSuccessListener(aVoid -> {
+            etTituloAddAgenda.setText(null);
+            etDescricaoAgenda.setText(null);
+            etDataAgenda.setText(null);
+            popAddPost.dismiss();
         });
 
 

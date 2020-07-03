@@ -36,7 +36,6 @@ public class HomeFragment extends Fragment {
     private FirebaseUser user;
 
 
-
     private RecyclerView mRecyclerView;
     private BlogAdapter adapter;
     private List<Blog> blogs;
@@ -47,22 +46,20 @@ public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
 
         // Lista
         mRecyclerView = view.findViewById(R.id.recyclerViewBlog);
-
         carregarPosts();
-
         return view;
     }
 
     private void carregarPosts() {
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
         blogs = new ArrayList<>();
 
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
@@ -77,7 +74,7 @@ public class HomeFragment extends Fragment {
                 blogs.clear();
 
 
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     todosPosts = postSnapshot.getValue(Blog.class);
 
