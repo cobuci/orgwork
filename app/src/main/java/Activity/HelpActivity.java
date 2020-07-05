@@ -58,12 +58,7 @@ public class HelpActivity extends AppCompatActivity {
         // botão pedir ajuda
         btnAjuda = findViewById(R.id.btnNewAjuda);
 
-        btnAjuda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                botaoAjuda();
-            }
-        });
+        btnAjuda.setOnClickListener(v -> botaoAjuda());
 
 
     }

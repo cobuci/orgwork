@@ -44,6 +44,7 @@
     <string name="Button_Logout_Activity_Perfil">Sair</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="descricao_blog">Descrição</string>
 
     <string-array name="tipo_solicitacao">
         <item>Duvida</item>

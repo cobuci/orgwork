@@ -130,22 +130,19 @@ public class AjudaAdapter extends RecyclerView.Adapter<AjudaAdapter.MyViewHolder
             menuHelp = itemView.findViewById(R.id.menu_ajuda);
             layoutCardAjuda = itemView.findViewById(R.id.layoutCardAjuda);
             cardViewListaAjuda = itemView.findViewById(R.id.cardViewListaAjuda);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent postDetailActivity = new Intent(mContext,HelpDetailsActivity.class);
-                int position = getAdapterPosition();
+        itemView.setOnClickListener(v -> {
+            Intent postDetailActivity = new Intent(mContext,HelpDetailsActivity.class);
+            int position = getAdapterPosition();
 
-                postDetailActivity.putExtra("tipo", mData.get(position).getTipo());
-                postDetailActivity.putExtra("autor", mData.get(position).getAutor());
-                postDetailActivity.putExtra("mensagem", mData.get(position).getMensagem());
-                postDetailActivity.putExtra("emailAutor",mData.get(position).getEmailAutor());
-                postDetailActivity.putExtra("timestamp",mData.get(position).getTimestamp());
-                postDetailActivity.putExtra("keyPost",mData.get(position).getKeyPost());
+            postDetailActivity.putExtra("tipo", mData.get(position).getTipo());
+            postDetailActivity.putExtra("autor", mData.get(position).getAutor());
+            postDetailActivity.putExtra("mensagem", mData.get(position).getMensagem());
+            postDetailActivity.putExtra("emailAutor",mData.get(position).getEmailAutor());
+            postDetailActivity.putExtra("timestamp",mData.get(position).getTimestamp());
+            postDetailActivity.putExtra("keyPost",mData.get(position).getKeyPost());
 
-                mContext.startActivity(postDetailActivity);
+            mContext.startActivity(postDetailActivity);
 
-            }
         });
 
 

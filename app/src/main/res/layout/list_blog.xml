@@ -10,7 +10,8 @@
     android:layout_marginBottom="10dp"
     android:clickable="true"
     android:orientation="vertical"
-    android:paddingBottom="2dp">
+    android:paddingBottom="2dp"
+    android:focusable="true">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewLista"
@@ -43,7 +44,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="TODO" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
@@ -58,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Descrição"
+                    android:text="@string/descricao_blog"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/placeholderAutor"
                     app:layout_constraintStart_toStartOf="@+id/txt_Nome_Post"
