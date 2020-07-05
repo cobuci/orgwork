@@ -100,6 +100,7 @@ public class HelpActivity extends AppCompatActivity {
         ajuda.setTimestamp(data);
         ajuda.setTipo(tipo);
         ajuda.setMensagem(mensagem);
+        ajuda.setStatusAjuda("Aberta");
 
 
 

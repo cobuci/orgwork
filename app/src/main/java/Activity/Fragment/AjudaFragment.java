@@ -63,14 +63,13 @@ public class AjudaFragment extends Fragment {
         referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
         // Inverter Lista
-        mLayoutManager.setStackFromEnd(true);
-        mLayoutManager.setReverseLayout(true);
 
-        referenciaFirebase.child("ajuda").orderByChild("keyPost").addValueEventListener(new ValueEventListener() {
+
+        referenciaFirebase.child("ajuda").orderByChild("statusAjuda").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
+                ajudas.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     todasAjudas = postSnapshot.getValue(Ajuda.class);

@@ -76,15 +76,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/btnMenuPost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_sharePost"
-                    app:layout_constraintEnd_toEndOf="@+id/dataholder"
-                    app:layout_constraintTop_toTopOf="@+id/btn_sharePost"
-                    app:srcCompat="@drawable/ic_ponto_menu" />
-
                 <TextView
                     android:id="@+id/placeholderAutor"
                     android:layout_width="wrap_content"
@@ -100,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="@+id/placeholderAutor"
-                    app:layout_constraintStart_toStartOf="@+id/dataholder"
+                    app:layout_constraintEnd_toEndOf="@+id/dataholder"
                     app:srcCompat="@drawable/ic_share" />
 
                 <TextView

@@ -10,6 +10,9 @@ public class Ajuda {
     private String autor;
     private String timestamp;
     private String emailAutor;
+    private String statusAjuda;
+
+
 
     public Ajuda(){
 
@@ -61,5 +64,13 @@ public class Ajuda {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getStatusAjuda() {
+        return statusAjuda;
+    }
+
+    public void setStatusAjuda(String statusAjuda) {
+        this.statusAjuda = statusAjuda;
     }
 }
