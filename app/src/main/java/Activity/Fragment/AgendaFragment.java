@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orgwork.renewed.R;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -96,6 +100,7 @@ public class AgendaFragment extends Fragment {
     }
 
 
+
     public void carregarAgenda() {
 
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -106,9 +111,12 @@ public class AgendaFragment extends Fragment {
 
         agendas = new ArrayList<>();
 
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
         uid = user.getUid();
+
+
 
 
         databaseReference.child("Agenda").child(uid).orderByChild("dataEntrega").addValueEventListener(new ValueEventListener() {

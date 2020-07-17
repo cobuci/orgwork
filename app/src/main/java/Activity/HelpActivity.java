@@ -25,10 +25,9 @@ import Class.Usuario;
 public class HelpActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private Usuario usuario;
     private FirebaseUser user;
     private Ajuda ajuda;
-    private EditText etMsg,etDescricao,etLink;
+    private EditText etMsg;
     private DatabaseReference myRef;
     private Button btnAjuda;
     private FirebaseDatabase database;
